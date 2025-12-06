@@ -20,12 +20,13 @@ namespace NextFarma.Data
             }
 
             // Cria o admin padrão
-            Usuario admin = new Usuario(
-                "admin@nextfarma.com",
-                "1234",
-                new DateTime(1990, 1, 1),
-                PeopleType.Adm
-            );
+            Usuario admin = new Usuario
+            {
+                Email = "admin@nextfarma.com",
+                Senha = "1234",
+                BirthDate = new DateTime(1990, 1, 1),
+                Type = PeopleType.Adm
+            };
 
             _context.Usuarios.Add(admin);
             _context.SaveChanges();

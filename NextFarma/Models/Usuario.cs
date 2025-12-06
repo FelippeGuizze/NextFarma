@@ -8,11 +8,11 @@ namespace NextFarma.Models
         public int Id { get; set; } 
 
         [Required]
-        public string Email { get; set; }
+        public required string Email { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        public string Senha { get; set; }
+        public required string Senha { get; set; }
 
         [Display(Name = "Data de Nascimento")]
         [DataType(DataType.Date)]
