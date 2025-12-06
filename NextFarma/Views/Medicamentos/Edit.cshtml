@@ -1,7 +1,7 @@
 ﻿@model NextFarma.Models.Medicamento
 
 @{
-    ViewData["Title"] = "Adicionar Medicamento";
+    ViewData["Title"] = "Editar Medicamento";
 }
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -27,24 +27,21 @@
         text-align: center;
     }
 
-    /* Card do Formulário */
     .form-card {
         background-color: var(--white);
         border-radius: var(--border-radius);
         box-shadow: var(--shadow);
         padding: 40px;
-        max-width: 600px;
-        margin: 40px auto; /* Centraliza na tela */
+        max-width: 600px; /* Largura ideal para formulários menores */
+        margin: 40px auto;
     }
 
-    /* Labels */
     .form-label {
         color: var(--secondary-green);
         font-weight: 600;
         margin-bottom: 8px;
     }
 
-    /* Inputs */
     .form-control, .form-select {
         border-radius: 10px;
         border: 1px solid #ced4da;
@@ -57,7 +54,6 @@
             box-shadow: 0 0 0 0.2rem rgba(0, 179, 65, 0.25);
         }
 
-    /* Botão Salvar */
     .btn-save {
         background-color: var(--primary-green);
         color: white;
@@ -76,7 +72,6 @@
             color: white;
         }
 
-    /* Link de Voltar */
     .link-back {
         display: block;
         text-align: center;
@@ -93,35 +88,36 @@
 
 <div class="container">
     <div class="form-card">
-        <h2>Adicionar Medicamento</h2>
+        <h2>Editar Medicamento</h2>
 
-        <form asp-action="CreateMedicine" method="post">
+        <form asp-action="Edit" method="post">
             @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="Id" />
             <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
             <div class="mb-3">
                 <label asp-for="Nome" class="form-label">Nome do Medicamento</label>
-                <input asp-for="Nome" class="form-control" placeholder="Ex: Dipirona..." />
+                <input asp-for="Nome" class="form-control" />
                 <span asp-validation-for="Nome" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
                 <label asp-for="Concentracao" class="form-label">Concentração</label>
-                <input asp-for="Concentracao" class="form-control" placeholder="Ex: 500mg..." />
+                <input asp-for="Concentracao" class="form-control" placeholder="Ex: 500mg" />
                 <span asp-validation-for="Concentracao" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
-                <label asp-for="CategoriaId" class="form-label">Categoria (Regra)</label>
-                <select asp-for="CategoriaId" class="form-select" asp-items="@(new Microsoft.AspNetCore.Mvc.Rendering.SelectList(ViewBag.Categorias, "Id", "Descricao"))">
-                    <option value="">Selecione uma categoria...</option>
+                <label asp-for="CategoriaId" class="form-label">Categoria (Lista)</label>
+                <select asp-for="CategoriaId" class="form-select" asp-items="@(new SelectList(ViewBag.Categorias, "Id", "Descricao"))">
+                    <option value="">Selecione...</option>
                 </select>
                 <span asp-validation-for="CategoriaId" class="text-danger"></span>
             </div>
 
-            <button type="submit" class="btn-save">Salvar Medicamento</button>
+            <button type="submit" class="btn-save">Salvar Alterações</button>
 
-            <a asp-action="Index" class="link-back">Voltar para a lista</a>
+            <a asp-controller="Admin" asp-action="Medicines" class="link-back">Voltar para a lista</a>
         </form>
     </div>
 </div>

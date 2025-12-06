@@ -1,0 +1,153 @@
+﻿@model NextFarma.Models.Prontuario
+
+@{
+    ViewData["Title"] = "Editar Prontuário";
+}
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+    /* Reaproveitando o estilo padrão do Admin */
+    :root {
+        --primary-green: #00B341;
+        --secondary-green: #1B5E20;
+        --light-bg: #F5F7F5;
+        --white: #FFFFFF;
+        --shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        --border-radius: 15px;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--light-bg);
+    }
+
+    h2 {
+        color: var(--secondary-green);
+        font-weight: 700;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .form-card {
+        background-color: var(--white);
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        padding: 40px;
+        max-width: 700px;
+        margin: 40px auto;
+    }
+
+    .form-label {
+        color: var(--secondary-green);
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+
+    .form-control, .form-select {
+        border-radius: 10px;
+        border: 1px solid #ced4da;
+        padding: 12px;
+        background-color: #f8f9fa;
+    }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 0.2rem rgba(0, 179, 65, 0.25);
+        }
+
+    .btn-save {
+        background-color: var(--primary-green);
+        color: white;
+        border-radius: 10px;
+        padding: 12px;
+        font-weight: 700;
+        border: none;
+        width: 100%;
+        margin-top: 20px;
+        transition: transform 0.2s;
+    }
+
+        .btn-save:hover {
+            background-color: #009e3a;
+            transform: translateY(-2px);
+            color: white;
+        }
+
+    .link-back {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+        color: var(--secondary-green);
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+        .link-back:hover {
+            text-decoration: underline;
+        }
+</style>
+
+<div class="container">
+    <div class="form-card">
+        <h2>Editar Prontuário</h2>
+
+        <form asp-action="Edit" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="Id" />
+
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="NumeroNotificacao" class="form-label">Nº Notificação</label>
+                    <input asp-for="NumeroNotificacao" class="form-control" />
+                    <span asp-validation-for="NumeroNotificacao" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="CID" class="form-label">CID (Diagnóstico)</label>
+                    <input asp-for="CID" class="form-control" />
+                    <span asp-validation-for="CID" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="DataEmissao" class="form-label">Data de Emissão</label>
+                    <input asp-for="DataEmissao" type="date" class="form-control" />
+                    <span asp-validation-for="DataEmissao" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="TipoDeUso" class="form-label">Tipo de Uso</label>
+                    <select asp-for="TipoDeUso" class="form-select" asp-items="Html.GetEnumSelectList<NextFarma.Models.TipoUso>()"></select>
+                    <span asp-validation-for="TipoDeUso" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="PacienteId" class="form-label">Paciente</label>
+                <select asp-for="PacienteId" class="form-select" asp-items="@(new SelectList(ViewBag.Pacientes, "Id", "Nome"))">
+                    <option value="">Selecione o paciente...</option>
+                </select>
+                <span asp-validation-for="PacienteId" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="MedicamentoId" class="form-label">Medicamento Prescrito</label>
+                <select asp-for="MedicamentoId" class="form-select" asp-items="@(new SelectList(ViewBag.Medicamentos, "Id", "Nome"))">
+                    <option value="">Selecione o medicamento...</option>
+                </select>
+                <span asp-validation-for="MedicamentoId" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn-save">Salvar Alterações</button>
+
+            <a asp-action="Records" class="link-back">Voltar para histórico</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

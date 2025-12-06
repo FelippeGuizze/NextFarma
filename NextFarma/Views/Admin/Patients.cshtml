@@ -1,4 +1,5 @@
 @model IEnumerable<NextFarma.Models.Paciente>
+@using NextFarma.Helpers
 
 @{
     ViewData["Title"] = "Pacientes";
@@ -7,56 +8,212 @@
     var q = ViewBag.Query as string ?? string.Empty;
 }
 
-<h2>Pacientes</h2>
-<form method="get" asp-action="Patients" class="mb-2">
-    <div class="input-group">
-        <input class="form-control" name="q" value="@q" placeholder="Buscar por nome, RG ou telefone" />
-        <button class="btn btn-outline-secondary" type="submit">Buscar</button>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --primary-green: #00B341;
+        --secondary-green: #1B5E20;
+        --light-bg: #F5F7F5;
+        --white: #FFFFFF;
+        --shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        --border-radius: 15px;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--light-bg);
+    }
+
+    h2 {
+        color: var(--secondary-green);
+        font-weight: 700;
+    }
+
+    .dashboard-container {
+        background-color: var(--white);
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        padding: 30px;
+        margin-top: 20px;
+        margin-bottom: 40px;
+    }
+
+    /* Inputs de Busca */
+    .custom-search-input {
+        border-radius: 20px 0 0 20px;
+        border: 1px solid #ced4da;
+        background-color: #f8f9fa;
+        padding-left: 20px;
+    }
+
+    .custom-search-btn {
+        border-radius: 0 20px 20px 0;
+        background-color: var(--secondary-green);
+        color: white;
+        border: 1px solid var(--secondary-green);
+    }
+
+        .custom-search-btn:hover {
+            background-color: var(--primary-green);
+            border-color: var(--primary-green);
+            color: white;
+        }
+
+    /* Botão Adicionar */
+    .btn-add-new {
+        background-color: var(--primary-green);
+        color: white;
+        border-radius: 20px;
+        padding: 8px 20px;
+        font-weight: 600;
+        border: none;
+        transition: transform 0.2s;
+        text-decoration: none;
+        display: inline-block;
+        margin-bottom: 20px;
+    }
+
+        .btn-add-new:hover {
+            background-color: #009e3a;
+            transform: translateY(-2px);
+            color: white;
+        }
+
+    /* Tabela Customizada */
+    .custom-table {
+        border-collapse: separate;
+        border-spacing: 0;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+        .custom-table thead th {
+            background-color: var(--secondary-green);
+            color: white;
+            padding: 15px;
+            font-weight: 600;
+            border: none;
+        }
+
+            .custom-table thead th:first-child {
+                border-radius: 10px 0 0 0;
+            }
+
+            .custom-table thead th:last-child {
+                border-radius: 0 10px 0 0;
+            }
+
+        .custom-table tbody td {
+            padding: 15px;
+            vertical-align: middle;
+            border-bottom: 1px solid #eee;
+            color: #333;
+        }
+
+        .custom-table tbody tr:hover {
+            background-color: #f0fdf4;
+        }
+
+    /* Botões de Ação */
+    .btn-action-edit {
+        color: var(--secondary-green);
+        border: 1px solid var(--secondary-green);
+        border-radius: 8px;
+        font-size: 0.85rem;
+        margin-right: 5px;
+        text-decoration: none;
+        padding: 4px 8px;
+    }
+
+        .btn-action-edit:hover {
+            background-color: var(--secondary-green);
+            color: white;
+        }
+
+    .btn-action-delete {
+        color: #dc3545;
+        border: 1px solid #dc3545;
+        border-radius: 8px;
+        font-size: 0.85rem;
+        background: transparent;
+        padding: 4px 8px;
+    }
+
+        .btn-action-delete:hover {
+            background-color: #dc3545;
+            color: white;
+        }
+
+    /* Paginação Verde */
+    .page-link {
+        color: var(--secondary-green);
+    }
+
+    .page-item.active .page-link {
+        background-color: var(--primary-green);
+        border-color: var(--primary-green);
+    }
+</style>
+
+<div class="container">
+    <div class="dashboard-container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Gerenciar Pacientes</h2>
+        </div>
+
+        <form method="get" asp-action="Patients" class="mb-3">
+            <div class="input-group">
+                <input class="form-control custom-search-input" name="q" value="@q" placeholder="Buscar por nome, RG ou telefone..." />
+                <button class="btn custom-search-btn" type="submit">Buscar</button>
+            </div>
+        </form>
+
+        <a class="btn-add-new" asp-action="CreatePatient">+ Novo Paciente</a>
+
+        <div class="table-responsive">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Idade</th>
+                        <th>Endereço</th>
+                        <th>RG</th>
+                        <th>Telefone</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var p in Model)
+                    {
+                        <tr>
+                            <td style="font-weight: 500;">@p.Nome</td>
+                            <td>@p.Idade anos</td>
+                            <td>@p.Endereco</td>
+                            <td>@Formatters.FormatRG(p.RG)</td>
+                            <td>@Formatters.FormatPhone(p.Telefone)</td>
+                            <td>
+                                <a class="btn btn-sm btn-action-edit" asp-action="EditPatient" asp-route-id="@p.Id">Editar</a>
+                                <form asp-action="DeletePatient" asp-route-id="@p.Id" method="post" style="display:inline">
+                                    @Html.AntiForgeryToken()
+                                    <button class="btn btn-sm btn-action-delete" type="submit" onclick="return confirm('Confirmar exclusão?')">Excluir</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <nav class="mt-4">
+            <ul class="pagination justify-content-center">
+                @for (int i = 1; i <= totalPages; i++)
+                {
+                    <li class="page-item @(i == page ? "active" : "")">
+                        <a class="page-link" href="?q=@q&page=@i">@i</a>
+                    </li>
+                }
+            </ul>
+        </nav>
     </div>
-</form>
-
-<a class="btn btn-primary mb-2" asp-action="CreatePatient">Criar Paciente</a>
-<table class="table table-sm table-bordered">
-    <thead>
-        <tr>
-            <th>Nome</th>
-            <th>Idade</th>
-            <th>Sexo</th>
-            <th>Endereço</th>
-            <th>RG</th>
-            <th>Telefone</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(var p in Model)
-        {
-            <tr>
-                <td>@p.Nome</td>
-                <td>@p.Idade</td>
-                <td>@p.Sexo</td>
-                <td>@p.Endereco</td>
-                <td>@p.RG</td>
-                <td>@p.Telefone</td>
-                <td>
-                    <a class="btn btn-sm btn-secondary" asp-action="EditPatient" asp-route-id="@p.Id">Editar</a>
-                    <form asp-action="DeletePatient" asp-route-id="@p.Id" method="post" style="display:inline">
-                        @Html.AntiForgeryToken()
-                        <button class="btn btn-sm btn-danger" type="submit" onclick="return confirm('Confirmar exclusão?')">Excluir</button>
-                    </form>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-<nav>
-    <ul class="pagination">
-        @for (int i = 1; i <= totalPages; i++)
-        {
-            <li class="page-item @(i == page ? "active" : "")">
-                <a class="page-link" href="?q=@q&page=@i">@i</a>
-            </li>
-        }
-    </ul>
-</nav>
+</div>

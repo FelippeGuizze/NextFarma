@@ -2,42 +2,231 @@
 
 @{
     ViewData["Title"] = "Acesso ao Sistema";
+    Layout = null;
 }
 
-<div class="text-center" style="margin-top: 50px;">
-    <h2>Bem-vindo ao NextFarma</h2>
-    <hr />
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - NextFarma</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    @if (ViewBag.Erro != null)
-    {
-        <div class="alert alert-danger">
-            @ViewBag.Erro
-        </div>
-    }
+    <style>
+        :root {
+            --primary-green: #51AF32;
+            --secondary-green: #31691E;
+            --gray-light: #D9D9D9;
+            --white: #FFFFFF;
+            --shadow: 0 10px 4px 0 rgba(0, 0, 0, 0.25);
+        }
 
-    <form asp-controller="Login" asp-action="Logar" method="post" style="max-width: 300px; margin: auto;">
-        @Html.AntiForgeryToken()
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff; /* Fundo branco para mesclar com a imagem */
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start; /* Alinha o conteúdo à esquerda */
+            min-height: 100vh;
+            padding-left: 10%; /* Espaço para o card não colar na borda */
+            overflow: hidden; /* Evita barras de rolagem desnecessárias */
+            position: relative;
+        }
 
-        <div class="form-group mb-3">
-            <label>Email</label>
-            <input asp-for="Email" class="form-control" placeholder="Digite seu email" required />
-        </div>
+        /* IMAGEM DE FUNDO (O Médico) */
+        .bg-doctor {
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100vh; /* Ocupa toda a altura da tela */
+            width: auto;
+            max-width: 65%; /* Ocupa até 65% da tela para não cobrir o form */
+            object-fit: cover;
+            z-index: -1; /* Fica atrás de tudo */
+        }
 
-        <div class="form-group mb-3">
-            <label>Senha</label>
-            <input asp-for="Senha" type="password" class="form-control" placeholder="Digite sua senha" required />
-        </div>
+        /* Container do Formulário */
+        .login-card {
+            background-color: var(--white);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 450px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 1; /* Garante que o card fique SOBRE a imagem */
+        }
 
-        <div class="form-check mb-3">
-            <input class="form-check-input" type="checkbox" id="rememberMe" name="rememberMe" value="true" />
-            <label class="form-check-label" for="rememberMe">Manter-me conectado</label>
-        </div>
+        .login-title {
+            color: var(--secondary-green);
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 40px;
+            text-align: center;
+        }
 
-        <button type="submit" class="btn btn-primary w-100">Logar</button>
+        /* Estilização dos Inputs */
+        .form-group {
+            width: 100%;
+            margin-bottom: 20px;
+        }
 
-        <div class="mt-3 text-center">
-            <span>Ainda não tem conta?</span><br />
-            <a asp-controller="Cadastro" asp-action="Index" class="btn btn-outline-secondary btn-sm mt-1">Criar Conta Nova</a>
-        </div>
-    </form>
-</div>
+        .custom-input {
+            width: 100%;
+            height: 60px;
+            background-color: var(--gray-light);
+            border: none;
+            border-radius: 20px;
+            padding: 0 25px;
+            font-size: 16px;
+            color: var(--secondary-green);
+            font-weight: 500;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+            .custom-input::placeholder {
+                color: var(--secondary-green);
+                opacity: 0.7;
+            }
+
+            .custom-input:focus {
+                border: 2px solid var(--primary-green);
+            }
+
+        /* Checkbox */
+        .form-check {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            padding-left: 10px;
+        }
+
+        .form-check-input {
+            width: 25px;
+            height: 25px;
+            border: 2px solid var(--secondary-green);
+            cursor: pointer;
+            accent-color: var(--secondary-green); /* Pinta o check nativo de verde */
+        }
+
+        .form-check-label {
+            color: var(--secondary-green);
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        /* Botões */
+        .btn-custom {
+            width: 100%;
+            height: 60px;
+            border-radius: 20px;
+            border: none;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: opacity 0.3s, transform 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+            .btn-custom:hover {
+                opacity: 0.9;
+                transform: translateY(-2px);
+            }
+
+        .btn-login {
+            background-color: var(--primary-green);
+            color: var(--white);
+        }
+
+        .btn-register {
+            background-color: var(--secondary-green);
+            color: var(--white);
+        }
+
+        .alert-danger {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            padding: 15px;
+            border-radius: 10px;
+            width: 100%;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Responsividade para telas pequenas (Celular) */
+        @@media (max-width: 768px) {
+            body {
+                justify-content: center; /* Centraliza tudo */
+                padding-left: 0;
+            }
+
+            .bg-doctor {
+                opacity: 0.2; /* Deixa a imagem transparente no fundo em telas pequenas */
+                max-width: 100%;
+            }
+
+            .login-card {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <img src="https://api.builder.io/api/v1/image/assets/TEMP/00a4febee93f6a9f2b6b04840fd068728d2412bd?width=2238"
+         alt="Background Médico"
+         class="bg-doctor" />
+
+    <div class="login-card">
+        <h1 class="login-title">Bem-vindo</h1>
+
+        @if (ViewBag.Erro != null)
+        {
+            <div class="alert alert-danger">
+                @ViewBag.Erro
+            </div>
+        }
+
+        <form asp-controller="Login" asp-action="Logar" method="post" style="width: 100%;">
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                <input asp-for="Email" class="custom-input" placeholder="Login..." required />
+            </div>
+
+            <div class="form-group">
+                <input asp-for="Senha" type="password" class="custom-input" placeholder="Senha..." required />
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="rememberMe" name="rememberMe" value="true" />
+                <label class="form-check-label" for="rememberMe">Manter conectado</label>
+            </div>
+
+            <button type="submit" class="btn-custom btn-login">
+                Entrar
+            </button>
+
+            <a asp-controller="Cadastro" asp-action="Index" class="btn-custom btn-register">
+                Cadastrar
+            </a>
+        </form>
+    </div>
+
+</body>
+</html>

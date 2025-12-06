@@ -9,24 +9,25 @@ namespace NextFarma.Models
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "O nome é obrigatório.")]
         public string Nome { get; set; } = string.Empty;
 
-        [Range(0,150, ErrorMessage = "Idade inválida")]
+        [Range(0, 150, ErrorMessage = "Idade inválida")]
         public int? Idade { get; set; }
 
         public string? Endereco { get; set; }
 
         [Display(Name = "CEP")]
-        [RegularExpression(@"^\d{8}$", ErrorMessage = "CEP deve conter 8 dígitos numéricos.")]
+        // Removido RegularExpression para permitir o traço (ex: 00000-000)
+        // O Controller vai limpar isso depois
         public string? CEP { get; set; }
 
         [Display(Name = "RG")]
-        [RegularExpression(@"^\d{7,9}$", ErrorMessage = "RG deve conter entre 7 e 9 dígitos numéricos.")]
+        // Removido RegularExpression para permitir pontos (ex: 12.345.678-9)
         public string? RG { get; set; }
 
         [Display(Name = "Telefone")]
-        [RegularExpression(@"^\d{10,11}$", ErrorMessage = "Telefone deve conter 10 ou 11 dígitos numéricos (DDD + número).")]
+        // Removido RegularExpression para permitir parênteses (ex: (11) 99999-9999)
         public string? Telefone { get; set; }
 
         public Sexo Sexo { get; set; }
