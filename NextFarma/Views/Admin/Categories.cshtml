@@ -1,0 +1,35 @@
+@model IEnumerable<NextFarma.Models.CategoriaMedicamento>
+
+@{
+    ViewData["Title"] = "Categorias";
+}
+
+<h2>Categorias de Medicamento</h2>
+<table class="table table-sm table-bordered">
+    <thead>
+        <tr>
+            <th>Lista</th>
+            <th>Descrição</th>
+            <th>Tipo Receituário</th>
+            <th>Cor</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var c in Model)
+        {
+            <tr>
+                <td>@c.Lista</td>
+                <td>@c.Descricao</td>
+                <td>@c.TipoReceituario</td>
+                <td>@c.CorReceita</td>
+                <td>
+                    <form asp-action="DeleteCategory" asp-route-id="@c.Id" method="post" style="display:inline">
+                        @Html.AntiForgeryToken()
+                        <button class="btn btn-sm btn-danger" type="submit" onclick="return confirm('Confirmar exclusão?')">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

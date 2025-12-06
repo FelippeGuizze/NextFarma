@@ -1,0 +1,28 @@
+@model NextFarma.Models.Medicamento
+
+@{
+    ViewData["Title"] = "Editar Medicamento";
+}
+
+<h2>Editar Medicamento</h2>
+<form asp-action="EditMedicine" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="Id" />
+    <div class="mb-3">
+        <label asp-for="Nome" class="form-label"></label>
+        <input asp-for="Nome" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Concentracao" class="form-label"></label>
+        <input asp-for="Concentracao" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Categoria</label>
+        <select asp-for="CategoriaId" class="form-select" asp-items="@(new Microsoft.AspNetCore.Mvc.Rendering.SelectList(ViewBag.Categorias, "Id", "Lista"))">
+            <option value="">Selecione...</option>
+        </select>
+    </div>
+    <div class="d-grid gap-2">
+        <button class="btn btn-primary">Salvar</button>
+    </div>
+</form>

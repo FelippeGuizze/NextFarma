@@ -1,0 +1,71 @@
+@model NextFarma.Models.Paciente
+
+@{
+    ViewData["Title"] = "Criar Paciente";
+}
+
+<h2>Criar Paciente</h2>
+<form asp-action="CreatePatient" method="post" id="createPatientForm">
+    @Html.AntiForgeryToken()
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="mb-3">
+        <label asp-for="Nome" class="form-label"></label>
+        <input asp-for="Nome" class="form-control" />
+        <span asp-validation-for="Nome" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Idade" class="form-label"></label>
+        <input asp-for="Idade" class="form-control" type="text" id="idadeInput" inputmode="numeric" pattern="\d*" maxlength="3" />
+        <span asp-validation-for="Idade" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Endereco" class="form-label"></label>
+        <input asp-for="Endereco" class="form-control" />
+        <span asp-validation-for="Endereco" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="CEP" class="form-label"></label>
+        <input asp-for="CEP" class="form-control" id="cepInput" inputmode="numeric" pattern="\d*" maxlength="8" />
+        <span asp-validation-for="CEP" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="RG" class="form-label"></label>
+        <input asp-for="RG" class="form-control" id="rgInput" inputmode="numeric" pattern="\d*" maxlength="9" />
+        <span asp-validation-for="RG" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Telefone" class="form-label"></label>
+        <input asp-for="Telefone" class="form-control" id="telInput" inputmode="numeric" pattern="\d*" maxlength="11" />
+        <span asp-validation-for="Telefone" class="text-danger"></span>
+    </div>
+    <div class="d-grid gap-2">
+        <button class="btn btn-success" id="btnCreatePatient">Criar</button>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        function enforceDigitsAndLimit(el, maxLen) {
+            if (!el) return;
+            el.addEventListener('input', function () {
+                this.value = this.value.replace(/\D/g, '').slice(0, maxLen);
+            });
+        }
+
+        enforceDigitsAndLimit(document.getElementById('idadeInput'), 3);
+        enforceDigitsAndLimit(document.getElementById('cepInput'), 8);
+        enforceDigitsAndLimit(document.getElementById('rgInput'), 9);
+        enforceDigitsAndLimit(document.getElementById('telInput'), 11);
+
+        // Ensure server receives numeric-only values
+        document.getElementById('createPatientForm').addEventListener('submit', function () {
+            var cep = document.getElementById('cepInput'); if (cep) cep.value = cep.value.replace(/\D/g, '');
+            var rg = document.getElementById('rgInput'); if (rg) rg.value = rg.value.replace(/\D/g, '');
+            var tel = document.getElementById('telInput'); if (tel) tel.value = tel.value.replace(/\D/g, '');
+            var idade = document.getElementById('idadeInput'); if (idade) idade.value = idade.value.replace(/\D/g, '');
+        });
+    </script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

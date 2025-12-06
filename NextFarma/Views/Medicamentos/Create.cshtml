@@ -1,0 +1,48 @@
+﻿@model NextFarma.Models.Medicamento
+
+@{
+    ViewData["Title"] = "Adicionar Medicamento";
+}
+
+<h2>Adicionar Medicamento</h2>
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="Nome" class="form-label">Nome do Medicamento</label>
+                <input asp-for="Nome" class="form-control" placeholder="Ex: Zolpidem" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Concentracao" class="form-label">Concentração</label>
+                <input asp-for="Concentracao" class="form-control" placeholder="Ex: 10mg" />
+                <span asp-validation-for="Concentracao" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="CategoriaId" class="form-label">Categoria (Regra ANVISA)</label>
+                <select asp-for="CategoriaId" class="form-control" asp-items="ViewBag.CategoriaId">
+                    <option value="">Selecione uma categoria...</option>
+                </select>
+                <span asp-validation-for="CategoriaId" class="text-danger"></span>
+            </div>
+
+            <div class="d-grid gap-2 mt-4">
+                <button type="submit" class="btn btn-primary">Salvar Medicamento</button>
+                <a asp-controller="Admin" asp-action="Medicines" class="btn btn-secondary">Voltar para Lista</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

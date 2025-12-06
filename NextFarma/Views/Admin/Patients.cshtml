@@ -1,0 +1,62 @@
+@model IEnumerable<NextFarma.Models.Paciente>
+
+@{
+    ViewData["Title"] = "Pacientes";
+    var page = ViewBag.Page as int? ?? 1;
+    var totalPages = ViewBag.TotalPages as int? ?? 1;
+    var q = ViewBag.Query as string ?? string.Empty;
+}
+
+<h2>Pacientes</h2>
+<form method="get" asp-action="Patients" class="mb-2">
+    <div class="input-group">
+        <input class="form-control" name="q" value="@q" placeholder="Buscar por nome, RG ou telefone" />
+        <button class="btn btn-outline-secondary" type="submit">Buscar</button>
+    </div>
+</form>
+
+<a class="btn btn-primary mb-2" asp-action="CreatePatient">Criar Paciente</a>
+<table class="table table-sm table-bordered">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Idade</th>
+            <th>Sexo</th>
+            <th>Endereço</th>
+            <th>RG</th>
+            <th>Telefone</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var p in Model)
+        {
+            <tr>
+                <td>@p.Nome</td>
+                <td>@p.Idade</td>
+                <td>@p.Sexo</td>
+                <td>@p.Endereco</td>
+                <td>@p.RG</td>
+                <td>@p.Telefone</td>
+                <td>
+                    <a class="btn btn-sm btn-secondary" asp-action="EditPatient" asp-route-id="@p.Id">Editar</a>
+                    <form asp-action="DeletePatient" asp-route-id="@p.Id" method="post" style="display:inline">
+                        @Html.AntiForgeryToken()
+                        <button class="btn btn-sm btn-danger" type="submit" onclick="return confirm('Confirmar exclusão?')">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<nav>
+    <ul class="pagination">
+        @for (int i = 1; i <= totalPages; i++)
+        {
+            <li class="page-item @(i == page ? "active" : "")">
+                <a class="page-link" href="?q=@q&page=@i">@i</a>
+            </li>
+        }
+    </ul>
+</nav>

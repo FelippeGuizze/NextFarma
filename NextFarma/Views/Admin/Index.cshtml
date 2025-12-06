@@ -1,0 +1,160 @@
+@model NextFarma.Models.AdminDashboardViewModel
+
+@using NextFarma.Helpers
+
+@{
+    ViewData["Title"] = "Admin - Dashboard";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Admin Dashboard</h2>
+
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success">@TempData["Success"]</div>
+        }
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger">@TempData["Error"]</div>
+        }
+
+        <ul class="nav nav-tabs" id="adminTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="dados-tab" data-bs-toggle="tab" data-bs-target="#dados" type="button" role="tab">Dados</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="meds-tab" data-bs-toggle="tab" data-bs-target="#meds" type="button" role="tab">Medicamentos</button>
+            </li>
+        </ul>
+        <div class="tab-content p-3">
+            <div class="tab-pane fade show active" id="dados" role="tabpanel">
+                <h4>Pacientes</h4>
+                <form method="get" asp-action="Patients" class="mb-2">
+                    <div class="input-group">
+                        <input class="form-control" name="q" placeholder="Buscar por nome, RG ou telefone" />
+                        <button class="btn btn-outline-secondary" type="submit">Buscar</button>
+                    </div>
+                </form>
+                <div class="mb-2">
+                    <a class="btn btn-sm btn-success" asp-controller="Patients" asp-action="Create">Adicionar Paciente</a>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Idade</th>
+                            <th>RG</th>
+                            <th>Telefone</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var p in Model.Pacientes.Take(10))
+                        {
+                            <tr>
+                                <td>@p.Nome</td>
+                                <td>@p.Idade</td>
+                                <td>@Formatters.FormatRG(p.RG)</td>
+                                <td>@Formatters.FormatPhone(p.Telefone)</td>
+                                <td>
+                                    <a class="btn btn-sm btn-outline-secondary" asp-controller="Patients" asp-action="Edit" asp-route-id="@p.Id">Editar</a>
+                                    <form asp-controller="Patients" asp-action="Delete" asp-route-id="@p.Id" method="post" style="display:inline">
+                                        @Html.AntiForgeryToken()
+                                        <button class="btn btn-sm btn-danger" type="submit" onclick="return confirm('Confirmar exclusão do paciente?')">Excluir</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <h4>Prontuários</h4>
+                <form method="get" asp-action="Records" class="mb-2">
+                    <div class="input-group">
+                        <input class="form-control" name="q" placeholder="Buscar por número, CID ou paciente" />
+                        <button class="btn btn-outline-secondary" type="submit">Buscar</button>
+                    </div>
+                </form>
+                <div class="mb-2">
+                    <a class="btn btn-sm btn-success" asp-controller="Prontuarios" asp-action="Create">Adicionar Prontuário</a>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Nº Notificação</th>
+                            <th>Paciente</th>
+                            <th>Medicamento</th>
+                            <th>Data Emissão</th>
+                            <th>Validade</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var pr in Model.Prontuarios.Take(10))
+                        {
+                            <tr>
+                                <td>@pr.NumeroNotificacao</td>
+                                <td>@pr.Paciente?.Nome</td>
+                                <td>@pr.Medicamento?.Nome</td>
+                                <td>@pr.DataEmissao.ToString("dd/MM/yyyy")</td>
+                                <td>@pr.DataValidade.ToString("dd/MM/yyyy")</td>
+                                <td>
+                                    <a class="btn btn-sm btn-outline-secondary" asp-controller="Prontuarios" asp-action="Index">Abrir</a>
+                                    <a class="btn btn-sm btn-outline-secondary" asp-controller="Prontuarios" asp-action="Edit" asp-route-id="@pr.Id">Editar</a>
+                                    <form asp-controller="Prontuarios" asp-action="Delete" asp-route-id="@pr.Id" method="post" style="display:inline">
+                                        @Html.AntiForgeryToken()
+                                        <button class="btn btn-sm btn-danger" type="submit" onclick="return confirm('Confirmar exclusão do prontuário?')">Excluir</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="tab-pane fade" id="meds" role="tabpanel">
+                <h4>Medicamentos</h4>
+                <form method="get" asp-action="Medicines" class="mb-2">
+                    <div class="input-group">
+                        <input class="form-control" name="q" placeholder="Buscar por nome, concentração ou lista" />
+                        <button class="btn btn-outline-secondary" type="submit">Buscar</button>
+                    </div>
+                </form>
+                <div class="mb-2">
+                    <a class="btn btn-sm btn-success" asp-controller="Medicamentos" asp-action="Create">Adicionar Medicamento</a>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Concentração</th>
+                            <th>Categoria (Lista)</th>
+                            <th>Cor da Receita</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var m in Model.Medicamentos.Take(10))
+                        {
+                            <tr>
+                                <td>@m.Nome</td>
+                                <td>@m.Concentracao</td>
+                                <td>@m.Categoria?.Lista - @m.Categoria?.Descricao</td>
+                                <td>@m.Categoria?.CorReceita</td>
+                                <td>
+                                    <a class="btn btn-sm btn-outline-secondary" asp-controller="Medicamentos" asp-action="Index">Abrir</a>
+                                    <a class="btn btn-sm btn-outline-secondary" asp-controller="Medicamentos" asp-action="Edit" asp-route-id="@m.Id">Editar</a>
+                                    <form asp-controller="Medicamentos" asp-action="Delete" asp-route-id="@m.Id" method="post" style="display:inline">
+                                        @Html.AntiForgeryToken()
+                                        <button class="btn btn-sm btn-danger" type="submit" onclick="return confirm('Confirmar exclusão do medicamento?')">Excluir</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

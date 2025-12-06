@@ -1,0 +1,75 @@
+﻿@model IEnumerable<NextFarma.Models.Medicamento>
+
+@{
+    ViewData["Title"] = "Gerenciar Medicamentos";
+    var page = ViewBag.Page as int? ?? 1;
+    var totalPages = ViewBag.TotalPages as int? ?? 1;
+    var q = ViewBag.Query as string ?? string.Empty;
+}
+
+<h2>Medicamentos</h2>
+
+<form method="get" asp-action="Medicines" class="mb-3">
+    <div class="input-group">
+        <input class="form-control" name="q" value="@q" placeholder="Buscar por nome, concentração ou categoria" />
+        <button class="btn btn-outline-secondary" type="submit">Buscar</button>
+    </div>
+</form>
+
+<a class="btn btn-primary mb-3" asp-action="CreateMedicine">Adicionar Medicamento</a>
+
+<table class="table table-sm table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Concentração</th>
+            <th>Categoria (Regra)</th>
+            <th>Cor da Receita</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Nome</td>
+                <td>@item.Concentracao</td>
+                <td>
+                    @if (item.Categoria != null)
+                    {
+                        @item.Categoria.Lista <text> - </text> @item.Categoria.Descricao
+                    }
+                    else
+                    {
+                        <span class="text-muted">Sem Categoria</span>
+                    }
+                </td>
+                <td>
+                    @if (item.Categoria != null)
+                    {
+                        <span class="badge bg-secondary">@item.Categoria.CorReceita</span>
+                    }
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-secondary" asp-action="EditMedicine" asp-route-id="@item.Id">Editar</a>
+
+                    <form asp-action="DeleteMedicine" asp-route-id="@item.Id" method="post" style="display:inline">
+                        @Html.AntiForgeryToken()
+                        <button class="btn btn-sm btn-danger" type="submit" onclick="return confirm('Tem certeza que deseja excluir este medicamento?')">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<nav>
+    <ul class="pagination">
+        @for (int i = 1; i <= totalPages; i++)
+        {
+            <li class="page-item @(i == page ? "active" : "")">
+                <a class="page-link" href="?q=@q&page=@i">@i</a>
+            </li>
+        }
+    </ul>
+</nav>

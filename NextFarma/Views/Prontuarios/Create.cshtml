@@ -1,0 +1,79 @@
+﻿@model NextFarma.Models.Prontuario
+@using NextFarma.Models
+
+@{
+    ViewData["Title"] = "Emitir Prontuário";
+}
+
+<h2>Nova Prescrição (Prontuário)</h2>
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="PacienteId" class="form-label">Paciente</label>
+                <select asp-for="PacienteId" class="form-control" asp-items="ViewBag.PacienteId">
+                    <option value="">Selecione o Paciente...</option>
+                </select>
+                <span asp-validation-for="PacienteId" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="MedicamentoId" class="form-label">Medicamento</label>
+                <select asp-for="MedicamentoId" class="form-control" asp-items="ViewBag.MedicamentoId">
+                    <option value="">Selecione o Medicamento...</option>
+                </select>
+                <span asp-validation-for="MedicamentoId" class="text-danger"></span>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="CID" class="form-label">CID (Doença)</label>
+                    <input asp-for="CID" class="form-control" placeholder="Ex: F41.1" />
+                    <span asp-validation-for="CID" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label asp-for="NumeroNotificacao" class="form-label">Nº Notificação</label>
+                    <input asp-for="NumeroNotificacao" class="form-control" />
+                    <span asp-validation-for="NumeroNotificacao" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="DataEmissao" class="form-label">Data de Emissão</label>
+                    <input asp-for="DataEmissao" type="date" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                    <span asp-validation-for="DataEmissao" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label asp-for="TipoDeUso" class="form-label">Tipo de Uso</label>
+                    <select asp-for="TipoDeUso" class="form-control" asp-items="Html.GetEnumSelectList<TipoUso>()">
+                        <option value="">Selecione...</option>
+                    </select>
+                    <span asp-validation-for="TipoDeUso" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="alert alert-info mt-2">
+                <small><i class="bi bi-info-circle"></i> A validade da receita será calculada automaticamente (30 dias a partir da emissão).</small>
+            </div>
+
+            <div class="d-grid gap-2 mt-4">
+                <button type="submit" class="btn btn-success">Emitir Receita</button>
+                <a asp-controller="Admin" asp-action="Records" class="btn btn-secondary">Voltar para Lista</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

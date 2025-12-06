@@ -1,0 +1,38 @@
+@model NextFarma.Models.Paciente
+
+@{
+    ViewData["Title"] = "Editar Paciente";
+}
+
+<h2>Editar Paciente</h2>
+<form asp-action="EditPatient" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="Id" />
+    <div class="mb-3">
+        <label asp-for="Nome" class="form-label"></label>
+        <input asp-for="Nome" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Idade" class="form-label"></label>
+        <input asp-for="Idade" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Endereco" class="form-label"></label>
+        <input asp-for="Endereco" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="CEP" class="form-label"></label>
+        <input asp-for="CEP" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="RG" class="form-label"></label>
+        <input asp-for="RG" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Telefone" class="form-label"></label>
+        <input asp-for="Telefone" class="form-control" />
+    </div>
+    <div class="d-grid gap-2">
+        <button class="btn btn-primary">Salvar</button>
+    </div>
+</form>

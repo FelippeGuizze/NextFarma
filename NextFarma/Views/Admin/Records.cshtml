@@ -1,0 +1,78 @@
+@model IEnumerable<NextFarma.Models.Prontuario>
+
+@{
+    ViewData["Title"] = "Histórico de Prontuários";
+    var page = ViewBag.Page as int? ?? 1;
+    var totalPages = ViewBag.TotalPages as int? ?? 1;
+    var q = ViewBag.Query as string ?? string.Empty;
+}
+
+<h2>Prontuários e Receitas</h2>
+
+<form method="get" asp-action="Records" class="mb-3">
+    <div class="input-group">
+        <input class="form-control" name="q" value="@q" placeholder="Buscar por paciente, notificação ou CID" />
+        <button class="btn btn-outline-secondary" type="submit">Buscar</button>
+    </div>
+</form>
+
+<a class="btn btn-success mb-3" asp-action="CreateRecord">Nova Prescrição</a>
+
+<table class="table table-sm table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Data Emissão</th>
+            <th>Nº Notificação</th>
+            <th>Paciente</th>
+            <th>Medicamento</th>
+            <th>CID</th>
+            <th>Validade</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            // Calcula se está vencida para mudar a cor
+            bool vencida = DateTime.Now > item.DataValidade;
+            string classeVencida = vencida ? "text-danger" : "text-success";
+
+            <tr>
+                <td>@item.DataEmissao.ToString("dd/MM/yyyy")</td>
+                <td>@item.NumeroNotificacao</td>
+                <td>@(item.Paciente?.Nome ?? "N/A")</td>
+                <td>
+                    @(item.Medicamento?.Nome ?? "N/A")
+                    <small class="text-muted">(@(item.Medicamento?.Concentracao ?? ""))</small>
+                </td>
+                <td>@item.CID</td>
+                <td class="@classeVencida">
+                    @item.DataValidade.ToString("dd/MM/yyyy")
+                    @if (vencida)
+                    {
+                        <small>(Vencida)</small>
+                    }
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-secondary" asp-action="EditRecord" asp-route-id="@item.Id">Editar</a>
+
+                    <form asp-action="DeleteRecord" asp-route-id="@item.Id" method="post" style="display:inline">
+                        @Html.AntiForgeryToken()
+                        <button class="btn btn-sm btn-danger" type="submit" onclick="return confirm('Excluir este prontuário?')">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<nav>
+    <ul class="pagination">
+        @for (int i = 1; i <= totalPages; i++)
+        {
+            <li class="page-item @(i == page ? "active" : "")">
+                <a class="page-link" href="?q=@q&page=@i">@i</a>
+            </li>
+        }
+    </ul>
+</nav>

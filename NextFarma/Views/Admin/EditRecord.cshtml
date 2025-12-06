@@ -1,0 +1,38 @@
+@model NextFarma.Models.Prontuario
+
+@{
+    ViewData["Title"] = "Editar Prontuário";
+}
+
+<h2>Editar Prontuário</h2>
+<form asp-action="EditRecord" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="Id" />
+    <div class="mb-3">
+        <label asp-for="NumeroNotificacao" class="form-label"></label>
+        <input asp-for="NumeroNotificacao" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="CID" class="form-label"></label>
+        <input asp-for="CID" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="DataEmissao" class="form-label"></label>
+        <input asp-for="DataEmissao" type="date" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="TipoDeUso" class="form-label"></label>
+        <select asp-for="TipoDeUso" class="form-select" asp-items="Html.GetEnumSelectList<NextFarma.Models.TipoUso>()"></select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Paciente</label>
+        <select asp-for="PacienteId" class="form-select" asp-items="@(new Microsoft.AspNetCore.Mvc.Rendering.SelectList(ViewBag.Pacientes, "Id", "Nome"))"></select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Medicamento</label>
+        <select asp-for="MedicamentoId" class="form-select" asp-items="@(new Microsoft.AspNetCore.Mvc.Rendering.SelectList(ViewBag.Medicamentos, "Id", "Nome"))"></select>
+    </div>
+    <div class="d-grid gap-2">
+        <button class="btn btn-primary">Salvar</button>
+    </div>
+</form>

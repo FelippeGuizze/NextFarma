@@ -1,0 +1,75 @@
+@model NextFarma.Models.Paciente
+@using NextFarma.Models
+
+@{
+    ViewData["Title"] = "Criar Paciente";
+}
+
+<h2>Criar Paciente</h2>
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create" method="post">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="Nome" class="form-label"></label>
+                <input asp-for="Nome" class="form-control" placeholder="Nome completo" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Idade" class="form-label"></label>
+                    <input asp-for="Idade" class="form-control" type="number" />
+                    <span asp-validation-for="Idade" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Sexo" class="form-label"></label>
+                    <select asp-for="Sexo" class="form-control" asp-items="Html.GetEnumSelectList<Sexo>()">
+                        <option value="">Selecione...</option>
+                    </select>
+                    <span asp-validation-for="Sexo" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="RG" class="form-label"></label>
+                <input asp-for="RG" class="form-control" placeholder="Apenas números" />
+                <span asp-validation-for="RG" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Telefone" class="form-label"></label>
+                <input asp-for="Telefone" class="form-control" placeholder="DDD + Número (apenas dígitos)" />
+                <span asp-validation-for="Telefone" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="CEP" class="form-label"></label>
+                <input asp-for="CEP" class="form-control" placeholder="00000000" />
+                <span asp-validation-for="CEP" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Endereco" class="form-label">Endereço</label>
+                <input asp-for="Endereco" class="form-control" placeholder="Rua, Número, Bairro" />
+                <span asp-validation-for="Endereco" class="text-danger"></span>
+            </div>
+
+            <div class="d-grid gap-2 mt-4">
+                <button type="submit" class="btn btn-success">Salvar Paciente</button>
+                <a asp-controller="Admin" asp-action="Patients" class="btn btn-secondary">Voltar para Lista</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
