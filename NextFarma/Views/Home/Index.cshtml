@@ -1,20 +1,14 @@
 ﻿@{
-
     ViewData["Title"] = "Home Page";
-
 }
-
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-
 <style>
-
     body {
         background-color: #ffffff;
         font-family: 'Inter', sans-serif;
     }
-
 
     .home-container {
         max-width: 800px;
@@ -24,7 +18,6 @@
         flex-direction: column;
         gap: 25px;
     }
-
 
     .home-card-full {
         width: 100%;
@@ -40,7 +33,6 @@
         justify-content: center;
     }
 
-
     .img-fluid-card {
         width: 100%;
         height: auto;
@@ -48,9 +40,7 @@
         object-fit: cover;
     }
 
-
     /* --- TEXTO SOBRE O CARD --- */
-
     .card-overlay {
         position: absolute;
         top: 0;
@@ -63,20 +53,17 @@
         z-index: 2;
     }
 
-
     .overlay-right {
         right: 0;
         align-items: flex-end;
         text-align: right;
     }
 
-
     .overlay-left {
         left: 0;
         align-items: flex-start;
         text-align: left;
     }
-
 
     .card-title {
         color: #FFFFFF;
@@ -88,7 +75,6 @@
         text-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
 
-
     .card-desc {
         color: #FFFFFF;
         font-weight: 500;
@@ -98,14 +84,12 @@
         text-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
 
-
     .bottom-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 25px;
         width: 100%;
     }
-
 
     .home-card-half {
         width: 100%;
@@ -118,25 +102,20 @@
         display: flex;
     }
 
-
         .home-card-full:hover, .home-card-half:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
         }
 
-
     @@media (max-width: 768px) {
-
         .bottom-grid {
             grid-template-columns: 1fr;
         }
-
 
         .home-container {
             gap: 15px;
             margin-top: 20px;
         }
-
 
         .card-overlay {
             width: 100%;
@@ -145,59 +124,34 @@
             text-align: center;
         }
     }
-
 </style>
-
 
 <div class="home-container">
 
-
+    <!-- Card 1: HEADER (Mantido) -->
     <div class="home-card-full">
-
         <img src="~/images/home/home-header.png" alt="Seja muito bem-vindo" class="img-fluid-card" />
-
     </div>
 
-
-    <!-- ALTERADO AQUI: Removido o overlay de texto, mantendo apenas a imagem -->
+    <!-- O Card 2 (Validador) NÃO EXISTE MAIS AQUI -->
+    <!-- Card 3: ESTUDOS (Agora é o segundo visualmente) -->
     <div class="home-card-full">
-
-        <img src="~/images/home/botao-validador.png" alt="Validador" class="img-fluid-card" />
-
-    </div>
-
-
-    <div class="home-card-full">
-
         <img src="~/images/home/botao-estudos.png" alt="Estudos" class="img-fluid-card" />
 
-
         <div class="card-overlay overlay-left">
-
             <div class="card-title">SEUS ESTUDOS</div>
-
             <div class="card-desc">Acompanhe seu desenvolvimento!!</div>
-
         </div>
-
     </div>
 
-
+    <!-- Cards Inferiores -->
     <div class="bottom-grid">
-
         <div class="home-card-half">
-
             <img src="~/images/home/botao-progresso.png" alt="Progresso" class="img-fluid-card" />
-
         </div>
-
         <div class="home-card-half">
-
             <img src="~/images/home/botao-historico.png" alt="Histórico" class="img-fluid-card" />
-
         </div>
-
     </div>
-
 
 </div>

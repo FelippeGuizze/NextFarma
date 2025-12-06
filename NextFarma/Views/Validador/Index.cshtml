@@ -1,0 +1,130 @@
+﻿@using NextFarma.Models
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+@{
+    ViewData["Title"] = "Validador de Prescrições";
+}
+
+<link rel="stylesheet" href="~/css/Validador.css" asp-append-version="true" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+
+<div class="validador-page">
+    <div class="validador-container">
+
+        <h1 class="validador-title">VALIDADOR DE PRESCRIÇÕES</h1>
+
+        <h2 class="case-title">CASO CLÍNICO</h2>
+
+        <div class="clinical-case">
+
+            <form class="case-form">
+
+                <div class="case-field">
+                    <label for="paciente">Paciente:</label>
+                    <input type="text" id="paciente" placeholder="Nome do Paciente..." />
+                </div>
+
+                <div class="case-field">
+                    <label for="idade">Idade:</label>
+                    <input type="text" id="idade" placeholder="20 anos..." />
+                </div>
+
+                <div class="case-field">
+                    <label for="queixa">Queixa:</label>
+                    <input type="text" id="queixa" placeholder="Dor de cabeça..." />
+                </div>
+
+                <div class="case-field">
+                    <label for="historico">Histórico:</label>
+                    <input type="text" id="historico" placeholder="Hipertensão, Diabetes..." />
+                </div>
+
+                <div class="case-field">
+                    <label for="comorbidades">Comorbidades:</label>
+                    <input type="text" id="comorbidades" placeholder="Obesidade, Asma..." />
+                </div>
+
+                <div class="case-field">
+                    <label for="medicamentos">Medicamentos<br />Atuais:</label>
+                    <input type="text" id="medicamentos" placeholder="AAS, Metformina..." />
+                </div>
+
+            </form>
+
+            <div class="prescription-area">
+                <div class="prescription-content">
+                    <header class="prescription-header">
+                        <img src="~/images/principal/logo-mini.png" alt="NextFarma Logo" class="logo-mini" />
+                        <span class="company-name">NextPharma</span>
+                        <div class="address-info">
+                            Rua das Palmeiras, 219 <br />
+                            CNPJ: 12.345.678/0001-90
+                        </div>
+                    </header>
+
+                    <h3 class="usage-title">Uso Contínuo</h3>
+
+                    <div class="prescription-item-display">
+                        <div class="item-medication-details">
+                            <span class="medication-name">Escitalopram 20mg</span>
+                            <span class="medication-quantity"> - 60cáps</span>
+                        </div>
+                        <div class="item-dosage">1 cp a noite p/ 3 meses</div>
+                    </div>
+
+                    <div class="prescription-date">
+                        São Paulo, 06.12.2025
+                    </div>
+
+                    <div class="doctor-signature-area">
+                    </div>
+
+                    <div class="patient-identification">
+                        <div class="patient-label">IDENTIFICAÇÃO DO PACIENTE OU RESPONSÁVEL</div>
+                        <div class="patient-fields">
+                            <span>Nome: _________________</span>
+                            <span>RG: _______</span>
+                            <span>Tel: _______</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="validation-buttons">
+
+            <div class="validation-option correct">
+                <div class="validation-icon correct-icon">
+                    <svg class="check-icon" width="80" height="80" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 50 L40 70 L80 30" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+                <div class="validation-label-wrapper">
+                    <div class="validation-label-text">Prescrição</div>
+                    <div class="validation-label-text">Correta</div>
+                </div>
+            </div>
+
+            <div class="validation-option wrong">
+                <div class="validation-icon wrong-icon">
+                    <svg class="x-icon" width="60" height="60" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 20 L80 80 M80 20 L20 80" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+                <div class="validation-label-wrapper">
+                    <div class="validation-label-text wrong-color">Prescrição</div>
+                    <div class="validation-label-text wrong-color">Errada</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="result-section success">
+            <div class="result-message">Parabéns! Prescrição correta</div>
+        </div>
+
+        <div class="recommendation-item">Esta é uma ação recomendada</div>
+
+    </div>
+</div>

@@ -1,0 +1,366 @@
+﻿/* NOTA: Em CSS padrão, use 'font-size' no lugar de 'fonte-size' */
+
+.validador-page {
+    min-height: 100vh;
+    background: #fff;
+}
+
+.validador-container {
+    max-width: 1728px;
+    margin: 0 auto;
+    padding: 40px 137px;
+    padding-top: 100px; /* Garante espaçamento abaixo do header */
+}
+
+.validador-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: var(--primary-green);
+    text-align: center;
+    fonte-size: 16px; /* Deve ser font-size */
+    font-weight: 700;
+    margin-bottom: 92px;
+    text-transform: uppercase;
+}
+
+.clinical-case {
+    width: 1612px;
+    min-height: 1226px; /* Altura original do design */
+    border-radius: 70px 0 0 70px;
+    background: var(--primary-green);
+    box-shadow: var(--shadow);
+    padding: 135px 80px;
+    position: relative;
+    margin-bottom: 100px;
+}
+
+.case-title {
+    color: var(--secondary-green);
+    text-align: center;
+    fonte-size: 16px; /* Deve ser font-size */
+    font-weight: 800;
+    margin-bottom: 125px;
+    text-transform: uppercase;
+}
+
+/* --- REGRAS DO FORMULÁRIO --- */
+.case-form {
+    display: flex;
+    flex-direction: column;
+    gap: 43px;
+    width: 50%; /* Ocupa a metade esquerda do bloco verde */
+}
+
+.case-field {
+    display: flex; /* Alinha Label e Input horizontalmente */
+    align-items: center;
+    gap: 21px;
+}
+
+    .case-field label {
+        color: var(--white);
+        text-align: right;
+        fonte-size: 16px; /* Deve ser font-size */
+        font-weight: 600;
+        min-width: 241px; /* Garante alinhamento das labels */
+    }
+
+    .case-field input {
+        width: 432px;
+        height: 106px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.3);
+        border: none;
+        padding: 0 21px;
+        color: var(--white);
+        fonte-size: 16px; /* Deve ser font-size */
+        font-weight: 400;
+        outline: none;
+        transition: background 0.3s;
+    }
+
+        .case-field input:focus {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .case-field input::placeholder {
+            color: var(--white);
+            opacity: 0.8;
+        }
+
+/* --- ÁREA DA PRESCRIÇÃO (Recorte Branco) --- */
+.prescription-area {
+    width: 737px;
+    height: 1172px;
+    background: var(--white);
+    position: absolute;
+    right: 0;
+    top: 27px;
+    border-radius: 0 70px 70px 0;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    overflow-y: auto;
+    padding: 40px 30px;
+}
+
+/* --- BOTÕES DE VALIDAÇÃO (CHECK/X) --- */
+.validation-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 64px;
+    gap: 100px;
+    max-width: 800px;
+    margin: 0 auto 64px;
+}
+
+.validation-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 64px;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+    .validation-option:hover {
+        transform: translateY(-5px);
+    }
+
+.validation-icon {
+    width: 244px;
+    height: 244px;
+    border-radius: 50%;
+    box-shadow: var(--shadow);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.correct-icon {
+    background: var(--primary-green);
+}
+
+.wrong-icon {
+    background: var(--red);
+}
+
+/* --- ÍCONES CHECK E X (COMPLEXO DO SEU CSS) --- */
+.check-mark { /* Usado no SVG/HTML para simplificar */
+    width: 33px;
+    height: 128px;
+    background: var(--white);
+    transform: rotate(45deg);
+    position: relative;
+}
+
+    .check-mark::after {
+        content: '';
+        width: 33px;
+        height: 64px;
+        background: var(--white);
+        transform: rotate(-90deg);
+        position: absolute;
+        bottom: 0;
+        left: -22px;
+    }
+
+.x-mark::before,
+.x-mark::after {
+    content: '';
+    width: 33px;
+    height: 128px;
+    background: var(--white);
+    position: absolute;
+}
+
+.x-mark::before {
+    transform: rotate(45deg);
+}
+
+.x-mark::after {
+    transform: rotate(135deg);
+}
+/* --- FIM ICONES COMPLEXOS --- */
+
+
+.validation-label {
+    color: var(--primary-green);
+    text-align: center;
+    fonte-size: 16px; /* Deve ser font-size */
+    font-weight: 900;
+}
+
+.validation-option.wrong .validation-label {
+    color: var(--red);
+}
+
+.result-section {
+    width: 1549px;
+    height: 272px;
+    border-radius: 70px;
+    background: var(--primary-green);
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 138px;
+}
+
+.result-message {
+    color: var(--white);
+    text-align: center;
+    fonte-size: 16px; /* Deve ser font-size */
+    font-weight: 600;
+}
+
+.error-alert {
+    width: 1174px;
+    height: 168px;
+    border-radius: 0 50px 50px 0;
+    background: var(--red);
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    gap: 37px;
+    padding-left: 168px;
+    margin-bottom: 138px;
+    position: relative;
+}
+
+.error-checkbox {
+    width: 168px;
+    height: 168px;
+    border: 18px solid var(--red);
+    background: var(--white);
+    position: absolute;
+    left: -168px;
+}
+
+.error-text {
+    color: var(--white);
+    fonte-size: 16px; /* Deve ser font-size */
+    font-weight: 600;
+}
+
+.error-item,
+.recommendation-item {
+    width: 1342px;
+    height: 168px;
+    border-radius: 50px;
+    background: var(--red);
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    fonte-size: 16px; /* Deve ser font-size */
+    font-weight: 600;
+    margin: 0 auto 70px;
+}
+
+.recommendation-item {
+    background: #2D6FA8;
+}
+
+.result-section.unidentified,
+.result-section.recommendations {
+    background: var(--secondary-green);
+    margin-bottom: 70px;
+}
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 1600px) {
+    .clinical-case,
+    .result-section,
+    .error-alert,
+    .error-item,
+    .recommendation-item {
+        width: 90%;
+    }
+
+    .prescription-area {
+        width: 40%;
+    }
+}
+
+@media (max-width: 1200px) {
+    .validador-container {
+        padding: 40px 50px;
+    }
+
+    .case-field input {
+        width: 300px;
+    }
+
+    .prescription-area {
+        width: 40%;
+        top: 30px;
+        height: 90%;
+    }
+
+    .case-form {
+        width: 60%;
+    }
+}
+
+@media (max-width: 768px) {
+    .validador-container {
+        padding: 20px;
+    }
+
+    .clinical-case {
+        flex-direction: column;
+        align-items: center;
+        border-radius: 20px;
+        padding: 30px;
+    }
+
+    .case-form {
+        width: 100%;
+        gap: 15px;
+    }
+
+    .case-field {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+        .case-field label {
+            min-width: auto;
+            width: 100%;
+            text-align: left;
+        }
+
+        .case-field input {
+            width: 100%;
+            height: 40px;
+        }
+
+    .prescription-area {
+        position: static;
+        width: 100%;
+        height: 400px;
+        margin-top: 30px;
+        border-radius: 20px;
+    }
+
+    .validation-buttons {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .error-alert {
+        padding-left: 50px;
+        height: 60px;
+        border-radius: 20px;
+    }
+
+    .error-checkbox {
+        width: 40px;
+        height: 40px;
+        border: 5px solid var(--red);
+        left: -20px;
+    }
+}

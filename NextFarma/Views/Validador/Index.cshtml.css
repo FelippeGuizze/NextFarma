@@ -1,0 +1,49 @@
+﻿/*
+#home-header {
+    width: 781px;
+    height: 335px;
+}
+
+#botao-validador {
+    width: 781px;
+    height: 219px;
+}
+
+#botao-estudos {
+    width: 781px;
+    height: 271px;
+}
+
+#botao-progresso, #botao-historico {
+    width: 369.5px;
+    height: 271px;
+}
+*/
+
+#home-header {
+    width: 100%;
+    height: auto;
+    max-width: 781px;
+    margin: 0 auto;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; /* Adds space between rows */
+    margin-top: 20px;
+}
+
+.button-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Adds space between buttons in the same row */
+}
+
+.button img {
+    width: 100%;
+    height: auto;
+    max-width: 369.5px; /* Adjust to max width */
+    max-height: 271px; /* Adjust to max height */
+}
