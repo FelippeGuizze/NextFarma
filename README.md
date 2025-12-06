@@ -24,27 +24,30 @@ No arquivo `appsettings.json`, ajuste a `DefaultConnection` com seu usuário e s
 "ConnectionStrings": {
   "DefaultConnection": "server=localhost;database=NextFarmaDb;user=root;password=SUA_SENHA"
 }
+```
 
-2. 🗄️ Comandos do Banco (Migrations)
+### 2. 🗄️ Comandos do Banco (Migrations)
 
 Execute no terminal na raiz do projeto:
 
-    Criar Migration (Gera o arquivo de histórico):
-    Bash
+1. Criar Migration (Gera o arquivo de histórico):
 
+```bash
 dotnet ef migrations add NomeDaMudanca
-
-Atualizar Banco (Aplica as mudanças no MySQL):
+```
+2. Atualizar Banco (Aplica as mudanças no MySQL):
 Bash
 
+```bash
 dotnet ef database update
+```
 
-Remover Última Migration (Desfaz a criação, caso não tenha atualizado o banco):
-Bash
+3. Remover Última Migration (Desfaz a criação, caso não tenha atualizado o banco):
+```bash
+dotnet ef migrations remove
+```
 
-    dotnet ef migrations remove
-
-🌱 Dados de Acesso (Admin)
+### 3. 🌱 Dados de Acesso (Admin)
 
 O sistema cria automaticamente um usuário administrador ao rodar pela primeira vez:
 
@@ -52,11 +55,11 @@ O sistema cria automaticamente um usuário administrador ao rodar pela primeira 
 
     Senha: 1234
 
-▶️ Como Rodar
+### 4. ▶️ Como Rodar
 
 Após configurar o banco e rodar o database update, inicie o projeto:
-Bash
 
+```bash
 dotnet run
-
+```
 Acesse: https://localhost:7260
