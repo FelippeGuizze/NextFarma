@@ -15,159 +15,161 @@
 
     <style>
         :root {
-            --primary-green: #51AF32;
-            --secondary-green: #31691E;
-            --gray-light: #D9D9D9;
+            --primary-green: #00B341; /* Verde Vibrante (Botão Entrar) */
+            --dark-green: #1B5E20; /* Verde Escuro (Texto/Botão Cadastrar) */
+            --input-bg: #D9D9D9; /* Cinza dos Inputs */
+            --card-bg: #f2f2f2; /* Fundo do Card (Levemente cinza) */
             --white: #FFFFFF;
-            --shadow: 0 10px 4px 0 rgba(0, 0, 0, 0.25);
+            --shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #ffffff;
+            background-color: var(--white);
             margin: 0;
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            min-height: 100vh;
-            padding-left: 10%;
+            padding: 0;
+            height: 100vh;
+            width: 100vw;
             overflow: hidden;
-            position: relative;
+            display: flex;
+            align-items: center; /* Centraliza verticalmente o card */
         }
 
-        /* --- NOVO HEADER (Estilo Aba) --- */
+        /* --- HEADER (Aba Branca + Barra Verde) --- */
         .custom-header {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 90px; /* Altura da barra verde */
-            background-color: #00B341; /* Verde vibrante da imagem */
-            z-index: 100;
+            height: 100px; /* Altura exata da imagem */
+            background-color: var(--primary-green);
+            z-index: 10;
             display: flex;
-            align-items: center;
+            align-items: flex-end; /* Alinha a aba na base se precisar */
         }
 
         .header-logo-tab {
-            background-color: #ffffff; /* Fundo branco da logo */
+            background-color: var(--white);
             height: 100%;
-            width: 350px; /* Largura da área branca */
-            /* O segredo da curva: arredonda apenas o canto superior direito */
-            border-top-right-radius: 50px;
+            width: 380px; /* Largura da aba */
+            border-top-right-radius: 60px; /* A curva arredondada */
             display: flex;
             align-items: center;
-            padding-left: 10%; /* Alinha com o conteúdo da página */
-            position: relative;
+            padding-left: 60px; /* Espaço da esquerda */
         }
 
         .header-logo {
-            width: 180px; /* Tamanho da logo */
+            width: 200px;
             height: auto;
             object-fit: contain;
         }
-        /* -------------------------------- */
 
+        /* --- IMAGEM DE FUNDO (Médico) --- */
         .bg-doctor {
             position: absolute;
             right: 0;
             top: 0;
             height: 100vh;
-            width: auto;
-            max-width: 65%;
+            width: 65%; /* Ocupa 65% da tela na direita */
             object-fit: cover;
-            z-index: -1;
+            z-index: 1; /* Fica atrás do card, mas na frente do body */
         }
 
+        /* --- CARD DE LOGIN --- */
         .login-card {
-            background-color: var(--white);
+            background-color: var(--card-bg);
             padding: 40px;
             border-radius: 20px;
             box-shadow: var(--shadow);
-            width: 100%;
-            max-width: 450px;
+            width: 420px;
+            /* Posicionamento Fixo na Esquerda */
+            position: relative;
+            z-index: 20; /* Fica acima de tudo */
+            margin-left: 10%; /* Distância da esquerda */
+            margin-top: 60px; /* Compensa o header */
+
             display: flex;
             flex-direction: column;
             align-items: center;
-            position: relative;
-            z-index: 1;
-            margin-top: 60px; /* Espaço para não colar no header */
         }
 
         .login-title {
-            color: var(--secondary-green);
+            color: var(--dark-green);
             font-size: 32px;
             font-weight: 800;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             text-align: center;
         }
 
         .form-group {
             width: 100%;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
+        /* Estilo dos Inputs (Cinza arredondado) */
         .custom-input {
             width: 100%;
-            height: 60px;
-            background-color: var(--gray-light);
+            height: 55px;
+            background-color: var(--input-bg);
             border: none;
-            border-radius: 20px;
-            padding: 0 25px;
+            border-radius: 10px;
+            padding: 0 20px;
             font-size: 16px;
-            color: var(--secondary-green);
+            color: var(--dark-green);
             font-weight: 500;
             outline: none;
             box-sizing: border-box;
         }
 
             .custom-input::placeholder {
-                color: var(--secondary-green);
-                opacity: 0.7;
+                color: var(--dark-green);
+                opacity: 0.8;
             }
 
-            .custom-input:focus {
-                border: 2px solid var(--primary-green);
-            }
-
+        /* Checkbox */
         .form-check {
             width: 100%;
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-bottom: 30px;
-            padding-left: 10px;
+            margin-top: 10px;
+            margin-bottom: 25px;
+            padding-left: 5px;
         }
 
         .form-check-input {
-            width: 25px;
-            height: 25px;
-            border: 2px solid var(--secondary-green);
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--dark-green);
             cursor: pointer;
-            accent-color: var(--secondary-green);
+            border-radius: 4px;
+            margin: 0;
         }
+
+            .form-check-input:checked {
+                background-color: var(--dark-green);
+                border-color: var(--dark-green);
+            }
 
         .form-check-label {
-            color: var(--secondary-green);
+            color: var(--dark-green);
             font-weight: 700;
-            font-size: 16px;
+            font-size: 14px;
             cursor: pointer;
         }
 
+        /* Botões */
         .btn-custom {
             width: 100%;
-            height: 60px;
-            border-radius: 20px;
+            height: 55px;
+            border-radius: 10px; /* Bordas menos arredondadas que o header, igual foto */
             border: none;
             font-size: 18px;
             font-weight: 700;
             cursor: pointer;
-            transition: opacity 0.3s, transform 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
+            transition: transform 0.2s;
             margin-bottom: 15px;
-            box-sizing: border-box;
+            color: var(--white);
         }
 
             .btn-custom:hover {
@@ -175,39 +177,39 @@
                 transform: translateY(-2px);
             }
 
+        /* Cores Específicas dos Botões */
         .btn-login {
             background-color: var(--primary-green);
-            color: var(--white);
         }
-
+        /* Verde Claro */
         .btn-register {
-            background-color: var(--secondary-green);
-            color: var(--white);
+            background-color: var(--dark-green);
         }
+        /* Verde Escuro */
 
+        /* Mensagens de Erro */
         .alert-danger {
             color: #721c24;
             background-color: #f8d7da;
-            border-color: #f5c6cb;
-            padding: 15px;
-            border-radius: 10px;
+            border: 1px solid #f5c6cb;
+            padding: 10px;
+            border-radius: 8px;
             width: 100%;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             text-align: center;
+            font-size: 14px;
         }
 
-        @@media (max-width: 768px) {
-            body {
-                justify-content: center;
-                padding-left: 0;
-            }
-
+        /* Responsividade Mobile */
+        @@media (max-width: 900px) {
             .bg-doctor {
-                opacity: 0.2;
-                max-width: 100%;
+                opacity: 0.15;
+                width: 100%;
             }
-
+            /* Imagem clareia no fundo */
             .login-card {
+                margin-left: auto;
+                margin-right: auto;
                 width: 90%;
             }
 
@@ -219,9 +221,7 @@
             }
 
             .custom-header {
-                height: 70px;
-                background-color: white;
-                border-bottom: 2px solid var(--primary-green);
+                height: 80px;
             }
         }
     </style>
@@ -237,7 +237,7 @@
     </div>
 
     <img src="https://api.builder.io/api/v1/image/assets/TEMP/00a4febee93f6a9f2b6b04840fd068728d2412bd?width=2238"
-         alt="Background Médico"
+         alt="Médico Background"
          class="bg-doctor" />
 
     <div class="login-card">
@@ -245,9 +245,7 @@
 
         @if (ViewBag.Erro != null)
         {
-            <div class="alert alert-danger">
-                @ViewBag.Erro
-            </div>
+            <div class="alert alert-danger">@ViewBag.Erro</div>
         }
 
         <form asp-controller="Login" asp-action="Logar" method="post" style="width: 100%;">
@@ -270,7 +268,7 @@
                 Entrar
             </button>
 
-            <a asp-controller="Cadastro" asp-action="Index" class="btn-custom btn-register">
+            <a asp-controller="Cadastro" asp-action="Index" class="btn-custom btn-register" style="display:flex; align-items:center; justify-content:center; text-decoration:none;">
                 Cadastrar
             </a>
         </form>

@@ -1,47 +1,203 @@
 ﻿@{
+
     ViewData["Title"] = "Home Page";
+
 }
 
-<!--
-<link rel="stylesheet" href="~/Views/Home/Index.cshtml.css" type="text/css" />
 
-<div class="text-center">
-    
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    
-    <div><img id="home-header" style="width: 781px; height: 335px" src="~/images/home/home-header.png" alt="Imagem do cabeçalho da Home" /></div>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <div><<img id="botao-validador" style="width: 781px; height: 219px;" src="~/images/home/botao-validador.png" alt="Botão para página de validação de prescrições" /></div>
-    <div><<img id="botao-estudos" style="width: 781px; height: 271px"; src="~/images/home/botao-estudos.png" alt="Alternate Text" /></div>
 
-    <div><<img id="botao-progresso" style="width: 369.5px; height: 271px;" src="~/images/home/botao-progresso.png" alt="Alternate Text" /></div>
-    <div><<img id="botao-historico" style="width: 369.5px; height: 271px;" src="~/images/home/botao-historico.png" alt="Alternate Text" /></div>
-</div>
--->
+<style>
 
-<div class="text-center">
-    <!-- Home Header Image -->
-    <div><img id="home-header" style="width: 781px; height: 335px" src="~/images/home/home-header.png" alt="Imagem do cabeçalho da Home" /></div>
+    body {
+        background-color: #ffffff;
+        font-family: 'Inter', sans-serif;
+    }
 
-    <!-- Buttons Grid Section -->
-    <div class="button-container">
-        <div class="button-row">
-            <div class="button">
-                <img id="botao-validador" style="width: 781px; height: 219px" src="~/images/home/botao-validador.png" alt="Botão para página de validação de prescrições" />
-            </div>
-            <div class="button">
-                <img id="botao-estudos" style="width: 781px; height: 271px" src="~/images/home/botao-estudos.png" alt="Botão para seus estudos" />
-            </div>
-        </div>
-        <div class="button-row">
-            <div class="button">
-                <img id="botao-progresso" style="width: 369.5px; height: 271px;" src="~/images/home/botao-progresso.png" alt="Botão para progresso" />
-            </div>
-            <div class="button">
-                <img id="botao-historico" style="width: 369.5px; height: 271px;" src="~/images/home/botao-historico.png" alt="Botão para histórico" />
-            </div>
-        </div>
+
+    .home-container {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 0 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+    }
+
+
+    .home-card-full {
+        width: 100%;
+        border-radius: 30px;
+        overflow: hidden;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease;
+        position: relative;
+        background-color: #00B341;
+        cursor: default;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+
+    .img-fluid-card {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: cover;
+    }
+
+
+    /* --- TEXTO SOBRE O CARD --- */
+
+    .card-overlay {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 40px;
+        width: 55%;
+        z-index: 2;
+    }
+
+
+    .overlay-right {
+        right: 0;
+        align-items: flex-end;
+        text-align: right;
+    }
+
+
+    .overlay-left {
+        left: 0;
+        align-items: flex-start;
+        text-align: left;
+    }
+
+
+    .card-title {
+        color: #FFFFFF;
+        font-weight: 800;
+        font-size: 1.4rem;
+        margin-bottom: 5px;
+        text-transform: uppercase;
+        line-height: 1.1;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+
+    .card-desc {
+        color: #FFFFFF;
+        font-weight: 500;
+        font-size: 1rem;
+        margin: 0;
+        opacity: 0.95;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+
+    .bottom-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 25px;
+        width: 100%;
+    }
+
+
+    .home-card-half {
+        width: 100%;
+        border-radius: 30px;
+        overflow: hidden;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease;
+        background-color: #00B341;
+        position: relative;
+        display: flex;
+    }
+
+
+        .home-card-full:hover, .home-card-half:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
+        }
+
+
+    @@media (max-width: 768px) {
+
+        .bottom-grid {
+            grid-template-columns: 1fr;
+        }
+
+
+        .home-container {
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+
+        .card-overlay {
+            width: 100%;
+            background: rgba(0, 179, 65, 0.7);
+            align-items: center;
+            text-align: center;
+        }
+    }
+
+</style>
+
+
+<div class="home-container">
+
+
+    <div class="home-card-full">
+
+        <img src="~/images/home/home-header.png" alt="Seja muito bem-vindo" class="img-fluid-card" />
+
     </div>
-</div>
 
+
+    <!-- ALTERADO AQUI: Removido o overlay de texto, mantendo apenas a imagem -->
+    <div class="home-card-full">
+
+        <img src="~/images/home/botao-validador.png" alt="Validador" class="img-fluid-card" />
+
+    </div>
+
+
+    <div class="home-card-full">
+
+        <img src="~/images/home/botao-estudos.png" alt="Estudos" class="img-fluid-card" />
+
+
+        <div class="card-overlay overlay-left">
+
+            <div class="card-title">SEUS ESTUDOS</div>
+
+            <div class="card-desc">Acompanhe seu desenvolvimento!!</div>
+
+        </div>
+
+    </div>
+
+
+    <div class="bottom-grid">
+
+        <div class="home-card-half">
+
+            <img src="~/images/home/botao-progresso.png" alt="Progresso" class="img-fluid-card" />
+
+        </div>
+
+        <div class="home-card-half">
+
+            <img src="~/images/home/botao-historico.png" alt="Histórico" class="img-fluid-card" />
+
+        </div>
+
+    </div>
+
+
+</div>
