@@ -1,0 +1,83 @@
+@model NextFarma.Models.AnaliseReceitaViewModel
+
+<div class="container mt-4">
+    <h2>Análise de Receita Controlada</h2>
+
+    <div class="alert @(Model.AprovadoGeral ? "alert-success" : "alert-danger") text-center">
+        <h3>@(Model.AprovadoGeral ? "DOCUMENTO VÁLIDO" : "DOCUMENTO COM DIVERGÊNCIAS")</h3>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <h4>Validação de Dados</h4>
+            
+            @functions {
+                string GetClass(bool ok) => ok ? "table-success" : "table-danger";
+                string GetIcon(bool ok) => ok ? "??" : "?";
+            }
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Categoria (Cor)</th>
+                        <th>Valores Lidos (Stub | Via 1 | Via 2)</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="@GetClass(Model.Remedio.Consistente)">
+                        <td><span class="badge bg-warning text-dark">Medicamento</span></td>
+                        <td>@string.Join(" | ", Model.Remedio.ValoresEncontrados)</td>
+                        <td>@GetIcon(Model.Remedio.Consistente)</td>
+                    </tr>
+
+                    <tr class="@GetClass(Model.Data.Consistente)">
+                        <td><span class="badge bg-danger">Data</span></td>
+                        <td>@string.Join(" | ", Model.Data.ValoresEncontrados)</td>
+                        <td>@GetIcon(Model.Data.Consistente)</td>
+                    </tr>
+
+                    <tr class="@GetClass(Model.Paciente.Consistente)">
+                        <td><span class="badge bg-success">Paciente</span></td>
+                        <td>@string.Join(" | ", Model.Paciente.ValoresEncontrados)</td>
+                        <td>@GetIcon(Model.Paciente.Consistente)</td>
+                    </tr>
+                     
+                    <tr class="@GetClass(Model.Unidade.Consistente)">
+                        <td><span class="badge" style="background-color: orange;">Unidade</span></td>
+                        <td>@string.Join(" | ", Model.Unidade.ValoresEncontrados)</td>
+                        <td>@GetIcon(Model.Unidade.Consistente)</td>
+                    </tr>
+
+                    <tr class="@GetClass(Model.Numero.Consistente)">
+                        <td><span class="badge" style="background-color: #FFA97B; color: black;">Número</span></td>
+                        <td>@Model.Numero.ValoresEncontrados.FirstOrDefault()</td>
+                        <td>@GetIcon(Model.Numero.Consistente)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-4">
+            <h4>Assinaturas (Roxo)</h4>
+            <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Canhoto/Topo
+                    <span>@(Model.Assinaturas.AssinaturaCanhoto ? "?? Detectada" : "? Ausente")</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Via 1 (Meio)
+                    <span>@(Model.Assinaturas.AssinaturaVia1 ? "?? Detectada" : "? Ausente")</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Via 2 (Rodapé)
+                    <span>@(Model.Assinaturas.AssinaturaVia2 ? "?? Detectada" : "? Ausente")</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="mt-3">
+        <a asp-action="Index" class="btn btn-primary">Nova Análise</a>
+    </div>
+</div>

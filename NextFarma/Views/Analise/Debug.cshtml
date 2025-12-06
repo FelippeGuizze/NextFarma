@@ -1,0 +1,32 @@
+@model NextFarma.Models.PdfDebugViewModel
+
+@{
+    ViewData["Title"] = "Debug PDF";
+}
+
+<h2>Palavras e coordenadas (página 1)</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Texto</th>
+            <th>Left</th>
+            <th>Bottom</th>
+            <th>Right</th>
+            <th>Top</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var w in Model.Words)
+        {
+            <tr>
+                <td>@w.Text</td>
+                <td>@w.Left</td>
+                <td>@w.Bottom</td>
+                <td>@w.Right</td>
+                <td>@w.Top</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="/Analise" class="btn btn-secondary">Voltar</a>

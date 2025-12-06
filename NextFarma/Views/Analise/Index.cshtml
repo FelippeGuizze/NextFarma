@@ -1,0 +1,22 @@
+@{
+    ViewData["Title"] = "Analisar PDF";
+}
+
+<h2>Enviar PDF para análise</h2>
+
+<form asp-controller="Analise" asp-action="Analisar" method="post" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+    <div class="mb-3">
+        <label for="arquivoPdf" class="form-label">Selecione o arquivo PDF</label>
+        <input type="file" name="arquivoPdf" accept="application/pdf" class="form-control" />
+    </div>
+
+    <div class="form-check mb-3">
+        <input class="form-check-input" type="checkbox" value="true" id="debug" name="debug" />
+        <label class="form-check-label" for="debug">
+            Mostrar coordenadas (modo debug) — útil para calibrar áreas do PDF
+        </label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Analisar</button>
+</form>
