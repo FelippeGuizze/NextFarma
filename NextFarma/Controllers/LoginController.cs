@@ -3,6 +3,9 @@ using NextFarma.Data;
 using System.Linq;
 using NextFarma.Models;
 using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 
 namespace NextFarma.Controllers
 {
@@ -22,7 +25,7 @@ namespace NextFarma.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Logar(Usuario model)
+        public async Task<IActionResult> Logar(Usuario model)
         {
             if (model == null || string.IsNullOrWhiteSpace(model.Email) || string.IsNullOrWhiteSpace(model.Senha))
             {
@@ -45,7 +48,6 @@ namespace NextFarma.Controllers
                 }
                 catch
                 {
-                    // If VerifyHashedPassword throws (stored value not a valid hash), we'll fall back to plaintext check below
                     result = PasswordVerificationResult.Failed;
                 }
 
@@ -57,6 +59,19 @@ namespace NextFarma.Controllers
                         _context.SaveChanges();
                     }
 
+                    // Create claims and sign-in cookie
+                    var claims = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
+                        new Claim(ClaimTypes.Name, usuario.Email),
+                        new Claim(ClaimTypes.Role, usuario.Type.ToString())
+                    };
+
+                    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var principal = new ClaimsPrincipal(identity);
+
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
                     return RedirectToAction("Index", "Home");
                 }
 
@@ -65,6 +80,19 @@ namespace NextFarma.Controllers
                 {
                     usuario.Senha = hasher.HashPassword(usuario, model.Senha);
                     _context.SaveChanges();
+
+                    var claims = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
+                        new Claim(ClaimTypes.Name, usuario.Email),
+                        new Claim(ClaimTypes.Role, usuario.Type.ToString())
+                    };
+
+                    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var principal = new ClaimsPrincipal(identity);
+
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
                     return RedirectToAction("Index", "Home");
                 }
             }
