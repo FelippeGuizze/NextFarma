@@ -24,30 +24,60 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #ffffff; /* Fundo branco para mesclar com a imagem */
+            background-color: #ffffff;
             margin: 0;
             display: flex;
             align-items: center;
-            justify-content: flex-start; /* Alinha o conteúdo à esquerda */
+            justify-content: flex-start;
             min-height: 100vh;
-            padding-left: 10%; /* Espaço para o card não colar na borda */
-            overflow: hidden; /* Evita barras de rolagem desnecessárias */
+            padding-left: 10%;
+            overflow: hidden;
             position: relative;
         }
 
-        /* IMAGEM DE FUNDO (O Médico) */
+        /* --- NOVO HEADER (Estilo Aba) --- */
+        .custom-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 90px; /* Altura da barra verde */
+            background-color: #00B341; /* Verde vibrante da imagem */
+            z-index: 100;
+            display: flex;
+            align-items: center;
+        }
+
+        .header-logo-tab {
+            background-color: #ffffff; /* Fundo branco da logo */
+            height: 100%;
+            width: 350px; /* Largura da área branca */
+            /* O segredo da curva: arredonda apenas o canto superior direito */
+            border-top-right-radius: 50px;
+            display: flex;
+            align-items: center;
+            padding-left: 10%; /* Alinha com o conteúdo da página */
+            position: relative;
+        }
+
+        .header-logo {
+            width: 180px; /* Tamanho da logo */
+            height: auto;
+            object-fit: contain;
+        }
+        /* -------------------------------- */
+
         .bg-doctor {
             position: absolute;
             right: 0;
             top: 0;
-            height: 100vh; /* Ocupa toda a altura da tela */
+            height: 100vh;
             width: auto;
-            max-width: 65%; /* Ocupa até 65% da tela para não cobrir o form */
+            max-width: 65%;
             object-fit: cover;
-            z-index: -1; /* Fica atrás de tudo */
+            z-index: -1;
         }
 
-        /* Container do Formulário */
         .login-card {
             background-color: var(--white);
             padding: 40px;
@@ -59,7 +89,8 @@
             flex-direction: column;
             align-items: center;
             position: relative;
-            z-index: 1; /* Garante que o card fique SOBRE a imagem */
+            z-index: 1;
+            margin-top: 60px; /* Espaço para não colar no header */
         }
 
         .login-title {
@@ -70,7 +101,6 @@
             text-align: center;
         }
 
-        /* Estilização dos Inputs */
         .form-group {
             width: 100%;
             margin-bottom: 20px;
@@ -99,7 +129,6 @@
                 border: 2px solid var(--primary-green);
             }
 
-        /* Checkbox */
         .form-check {
             width: 100%;
             display: flex;
@@ -114,7 +143,7 @@
             height: 25px;
             border: 2px solid var(--secondary-green);
             cursor: pointer;
-            accent-color: var(--secondary-green); /* Pinta o check nativo de verde */
+            accent-color: var(--secondary-green);
         }
 
         .form-check-label {
@@ -124,7 +153,6 @@
             cursor: pointer;
         }
 
-        /* Botões */
         .btn-custom {
             width: 100%;
             height: 60px;
@@ -168,25 +196,45 @@
             text-align: center;
         }
 
-        /* Responsividade para telas pequenas (Celular) */
         @@media (max-width: 768px) {
             body {
-                justify-content: center; /* Centraliza tudo */
+                justify-content: center;
                 padding-left: 0;
             }
 
             .bg-doctor {
-                opacity: 0.2; /* Deixa a imagem transparente no fundo em telas pequenas */
+                opacity: 0.2;
                 max-width: 100%;
             }
 
             .login-card {
                 width: 90%;
             }
+
+            .header-logo-tab {
+                width: 100%;
+                border-radius: 0;
+                justify-content: center;
+                padding: 0;
+            }
+
+            .custom-header {
+                height: 70px;
+                background-color: white;
+                border-bottom: 2px solid var(--primary-green);
+            }
         }
     </style>
 </head>
 <body>
+
+    <div class="custom-header">
+        <div class="header-logo-tab">
+            <img src="https://api.builder.io/api/v1/image/assets/TEMP/e352d0fa2f32f43eface12d3d8b3b6ee147c911c?width=560"
+                 alt="NextPharma Logo"
+                 class="header-logo" />
+        </div>
+    </div>
 
     <img src="https://api.builder.io/api/v1/image/assets/TEMP/00a4febee93f6a9f2b6b04840fd068728d2412bd?width=2238"
          alt="Background Médico"

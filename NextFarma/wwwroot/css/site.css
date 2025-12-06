@@ -38,3 +38,104 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+
+/* --- HEADER HÍBRIDO (Visual Novo + Tamanho Antigo) --- */
+:root {
+    --header-height: 60px; /* Altura padrão do Bootstrap navbar */
+    --nav-green: #51AF32; /* Seu verde original do site.css antigo */
+    --nav-text: #ffffff;
+}
+
+.main-header {
+    width: 100%;
+    height: var(--header-height);
+    background-color: var(--nav-green);
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: relative;
+    z-index: 1000;
+}
+
+/* Aba branca da logo */
+.header-brand-tab {
+    background-color: #ffffff;
+    height: 100%;
+    /* Largura ajustada para ser proporcional à altura menor */
+    width: 280px;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    /* Curva proporcional */
+    border-top-right-radius: 40px;
+    margin-right: 20px;
+    flex-shrink: 0;
+}
+
+.header-logo-img {
+    height: 40px; /* Ajustado para caber em 60px */
+    width: auto;
+    object-fit: contain;
+}
+
+/* Container dos links */
+.header-nav-container {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    justify-content: space-between; /* Espalha esq/dir como no antigo */
+    padding-right: 20px;
+}
+
+.nav-list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 20px;
+    align-items: center;
+}
+
+.nav-link-custom {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem; /* Tamanho padrão de texto */
+    font-weight: 500;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.85); /* Branco suave */
+    transition: color 0.2s;
+}
+
+    .nav-link-custom:hover, .nav-link-custom.active {
+        color: #ffffff;
+        font-weight: 700;
+    }
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .main-header {
+        height: auto;
+        flex-direction: column;
+        padding-bottom: 10px;
+    }
+
+    .header-brand-tab {
+        width: 100%;
+        border-radius: 0;
+        justify-content: center;
+        padding: 10px 0;
+        margin: 0;
+    }
+
+    .header-nav-container {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        padding: 10px;
+    }
+
+    .nav-list {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+}

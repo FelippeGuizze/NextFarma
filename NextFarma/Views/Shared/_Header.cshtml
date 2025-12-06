@@ -1,0 +1,47 @@
+﻿<header class="main-header">
+    <div class="header-brand-tab">
+        <a asp-area="" asp-controller="Home" asp-action="Index">
+            <img src="~/images/principal/logo.png" alt="Logo da NextPharma" class="header-logo-img" />
+        </a>
+    </div>
+
+    <div class="header-nav-container">
+
+        <ul class="nav-list">
+            <li>
+                <a class="nav-link-custom" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+            </li>
+            <li>
+                <a class="nav-link-custom" asp-area="" asp-controller="Login" asp-action="Index">Login</a>
+            </li>
+            <li>
+                <a class="nav-link-custom" asp-area="" asp-controller="Cadastro" asp-action="Index">Cadastro</a>
+            </li>
+            <li>
+                <a class="nav-link-custom" asp-area="" asp-controller="Analise" asp-action="Index">Analise</a>
+            </li>
+
+            @if (User.Identity != null && User.IsInRole("Adm"))
+            {
+                <li>
+                    <a class="nav-link-custom" asp-area="" asp-controller="Admin" asp-action="Index">Admin</a>
+                </li>
+            }
+        </ul>
+
+        <ul class="nav-list">
+            @if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                <li>
+                    <span class="nav-link-custom" style="cursor: default;">Olá, @User.Identity.Name</span>
+                </li>
+                <li>
+                    <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-outline-light btn-sm" style="border-radius: 20px;">Sair</button>
+                    </form>
+                </li>
+            }
+        </ul>
+    </div>
+</header>
