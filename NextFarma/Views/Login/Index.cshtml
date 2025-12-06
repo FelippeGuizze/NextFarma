@@ -10,10 +10,12 @@
 
     @if (ViewBag.Erro != null)
     {
-        <div class="alert alert-danger">@ViewBag.Erro</div>
+        <div class="alert alert-danger">
+            @ViewBag.Erro
+        </div>
     }
 
-    <form asp-controller="Usuario" asp-action="Logar" method="post" style="max-width: 300px; margin: auto;">
+    <form asp-controller="Login" asp-action="Logar" method="post" style="max-width: 300px; margin: auto;">
 
         <div class="form-group mb-3">
             <label>Email</label>
@@ -26,5 +28,10 @@
         </div>
 
         <button type="submit" class="btn btn-primary w-100">Logar</button>
+
+        <div class="mt-3 text-center">
+            <span>Ainda não tem conta?</span><br />
+            <a asp-controller="Cadastro" asp-action="Index" class="btn btn-outline-secondary btn-sm mt-1">Criar Conta Nova</a>
+        </div>
     </form>
 </div>

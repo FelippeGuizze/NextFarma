@@ -25,11 +25,20 @@ namespace NextFarma.Controllers
 
             if (usuario != null)
             {
+                // -------------------------------------------------------------------------
+                // COMENTÁRIO: É AQUI QUE VOCÊ MUDA A PÁGINA DE DESTINO APÓS O LOGIN
+                // O primeiro parâmetro é a Action ("Index")
+                // O segundo parâmetro é o Controller ("Home")
+                // Se quiser mandar para Dashboard, mudaria para: RedirectToAction("Index", "Dashboard");
+                // -------------------------------------------------------------------------
                 return RedirectToAction("Index", "Home");
             }
             else
             {
+                // Se errar a senha, cria a mensagem de erro
                 ViewBag.Erro = "Usuário ou senha inválidos!";
+
+                // Retorna para a mesma tela de Login ("Index") para mostrar o erro
                 return View("Index");
             }
         }
