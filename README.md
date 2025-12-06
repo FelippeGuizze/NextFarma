@@ -26,7 +26,14 @@ No arquivo `appsettings.json`, ajuste a `DefaultConnection` com seu usuário e s
 }
 ```
 
-### 2. 🗄️ Comandos do Banco (Migrations)
+### 2. Instalação do Entity Framework Core
+Caso precise instalar, use este comando:
+
+```bash
+dotnet tool install --global dotnet-ef
+```
+
+### 3. 🗄️ Comandos do Banco (Migrations)
 
 Execute no terminal na raiz do projeto:
 
@@ -36,7 +43,6 @@ Execute no terminal na raiz do projeto:
 dotnet ef migrations add NomeDaMudanca
 ```
 2. Atualizar Banco (Aplica as mudanças no MySQL):
-Bash
 
 ```bash
 dotnet ef database update
@@ -47,15 +53,16 @@ dotnet ef database update
 dotnet ef migrations remove
 ```
 
-### 3. 🌱 Dados de Acesso (Admin)
+### 4. 🌱 Dados de Acesso (Admin)
 
 O sistema cria automaticamente um usuário administrador ao rodar pela primeira vez:
 
     Email: admin@nextfarma.com
 
+
     Senha: 1234
 
-### 4. ▶️ Como Rodar
+### 5. ▶️ Como Rodar
 
 Após configurar o banco e rodar o database update, inicie o projeto:
 
