@@ -12,9 +12,18 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))
 );
+builder.Services.AddScoped<SeedingService>();
 // -----------------------------
 
 var app = builder.Build();
+
+// --- BLOCO DE SEEDING ---
+// Isso cria um escopo temporário para pegar o serviço e rodar
+using (var scope = app.Services.CreateScope())
+{
+    var seedingService = scope.ServiceProvider.GetRequiredService<SeedingService>();
+    seedingService.Seed();
+}
 
 // Configura o pipeline de requisição (Antigo Configure do Startup.cs)
 if (!app.Environment.IsDevelopment())

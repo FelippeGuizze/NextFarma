@@ -1,0 +1,58 @@
+﻿@model NextFarma.Models.Usuario
+
+@{
+    ViewData["Title"] = "Nova Conta";
+}
+
+<div class="row justify-content-center" style="margin-top: 50px;">
+    <div class="col-md-4 border p-4 rounded shadow-sm">
+        <h3 class="text-center mb-4">Criar Nova Conta</h3>
+
+        <form asp-controller="Cadastro" asp-action="Cadastrar" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label">Email</label>
+                <input asp-for="Email" class="form-control" placeholder="exemplo@email.com" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Senha" class="form-label">Senha</label>
+                <input asp-for="Senha" type="password" class="form-control" placeholder="******" />
+                <span asp-validation-for="Senha" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="BirthDate" class="form-label">Data de Nascimento</label>
+                <input asp-for="BirthDate" class="form-control" />
+                <span asp-validation-for="BirthDate" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Type" class="form-label">Tipo de Perfil</label>
+                <select asp-for="Type" class="form-select"
+                        asp-items="Html.GetEnumSelectList<NextFarma.Models.PeopleType>()">
+                    <option selected="selected" value="">Selecione...</option>
+                </select>
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+
+            <div class="d-grid gap-2">
+                <input type="submit" value="Cadastrar" class="btn btn-success" />
+            </div>
+        </form>
+
+        <hr />
+
+        <div class="text-center">
+            <a asp-controller="Login" asp-action="Index" class="text-decoration-none">Já tenho conta (Voltar)</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

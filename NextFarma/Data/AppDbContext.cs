@@ -5,12 +5,10 @@ namespace NextFarma.Data
 {
     public class AppDbContext : DbContext
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options)
-            : base(options)
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
 
-        public int Id { get; set; }
-
+        public DbSet<Usuario> Usuarios { get; set; }
     }
 }
