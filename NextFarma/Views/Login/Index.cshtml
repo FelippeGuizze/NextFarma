@@ -16,6 +16,7 @@
     }
 
     <form asp-controller="Login" asp-action="Logar" method="post" style="max-width: 300px; margin: auto;">
+        @Html.AntiForgeryToken()
 
         <div class="form-group mb-3">
             <label>Email</label>

@@ -2,6 +2,7 @@
 using NextFarma.Data;
 using NextFarma.Models;
 using System.Linq;
+using Microsoft.AspNetCore.Identity;
 
 namespace NextFarma.Controllers
 {
@@ -33,6 +34,9 @@ namespace NextFarma.Controllers
                     ModelState.AddModelError("Email", "Email já cadastrado.");
                     return View("Index", usuario); // Retorna para a View Index com erros
                 }
+
+                var hasher = new PasswordHasher<Usuario>();
+                usuario.Senha = hasher.HashPassword(usuario, usuario.Senha);
 
                 _context.Usuarios.Add(usuario);
                 _context.SaveChanges();

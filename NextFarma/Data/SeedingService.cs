@@ -1,4 +1,5 @@
 ﻿using NextFarma.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace NextFarma.Data
 {
@@ -27,6 +28,9 @@ namespace NextFarma.Data
                 BirthDate = new DateTime(1990, 1, 1),
                 Type = PeopleType.Adm
             };
+
+            var hasher = new PasswordHasher<Usuario>();
+            admin.Senha = hasher.HashPassword(admin, admin.Senha);
 
             _context.Usuarios.Add(admin);
             _context.SaveChanges();
