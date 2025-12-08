@@ -30,7 +30,7 @@ No arquivo `appsettings.json`, ajuste a `DefaultConnection` com seu usuário e s
 Caso precise instalar, use este comando:
 
 ```bash
-dotnet tool install --global dotnet-ef
+dotnet tool install --global dotnet-ef --version 8.0.0
 ```
 
 ### 3. 🗄️ Comandos do Banco (Migrations)
