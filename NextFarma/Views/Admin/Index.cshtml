@@ -1,4 +1,4 @@
-@model NextFarma.Models.AdminDashboardViewModel
+Ôªø@model NextFarma.Models.AdminDashboardViewModel
 @using NextFarma.Helpers
 
 @{
@@ -6,6 +6,7 @@
 }
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/x-icon" href="images/principal/favicon.ico"> 
 
 <style>
     :root {
@@ -84,7 +85,7 @@
             color: white;
         }
 
-    /* Bot„o Adicionar Novo (SEM TRA«ADO) */
+    /* Bot√£o Adicionar Novo (SEM TRA√áADO) */
     .btn-add-new {
         background-color: var(--primary-green);
         color: white;
@@ -104,7 +105,7 @@
             text-decoration: none;
         }
 
-    /* Bot„o "Ver Todos" (Simples, no mesmo site) */
+    /* Bot√£o "Ver Todos" (Simples, no mesmo site) */
     .btn-view-all {
         color: var(--secondary-green);
         font-weight: 600;
@@ -165,7 +166,7 @@
             background-color: #f0fdf4;
         }
 
-    /* Badges e AÁıes */
+    /* Badges e A√ß√µes */
     .btn-action-edit {
         color: var(--secondary-green);
         border: 1px solid var(--secondary-green);
@@ -246,7 +247,7 @@
                                 <th>Idade</th>
                                 <th>RG</th>
                                 <th>Telefone</th>
-                                <th>AÁıes</th>
+                                <th>A√ß√µes</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -261,7 +262,7 @@
                                         <a class="btn btn-sm btn-action-edit" asp-controller="Patients" asp-action="Edit" asp-route-id="@p.Id">Editar</a>
                                         <form asp-controller="Patients" asp-action="Delete" asp-route-id="@p.Id" method="post" style="display:inline">
                                             @Html.AntiForgeryToken()
-                                            <button class="btn btn-sm btn-action-delete" type="submit" onclick="return confirm('Confirmar exclus„o?')">Excluir</button>
+                                            <button class="btn btn-sm btn-action-delete" type="submit" onclick="return confirm('Confirmar exclus√£o?')">Excluir</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -279,13 +280,13 @@
                 <hr class="my-5" style="opacity: 0.1">
 
                 <div class="d-flex justify-content-between align-items-end mb-3">
-                    <h4>Prontu·rios Recentes</h4>
-                    <a class="btn-add-new" asp-controller="Prontuarios" asp-action="Create">+ Novo Prontu·rio</a>
+                    <h4>Prontu√°rios Recentes</h4>
+                    <a class="btn-add-new" asp-controller="Prontuarios" asp-action="Create">+ Novo Prontu√°rio</a>
                 </div>
 
                 <form method="get" asp-action="Records" class="mb-3">
                     <div class="input-group">
-                        <input class="form-control custom-search-input" name="q" placeholder="Buscar por n˙mero, CID ou paciente..." />
+                        <input class="form-control custom-search-input" name="q" placeholder="Buscar por n√∫mero, CID ou paciente..." />
                         <button class="btn custom-search-btn" type="submit">Buscar</button>
                     </div>
                 </form>
@@ -294,12 +295,12 @@
                     <table class="custom-table">
                         <thead>
                             <tr>
-                                <th>NotificaÁ„o</th>
+                                <th>Notifica√ß√£o</th>
                                 <th>Paciente</th>
                                 <th>Medicamento</th>
-                                <th>Emiss„o</th>
+                                <th>Emiss√£o</th>
                                 <th>Validade</th>
-                                <th>AÁıes</th>
+                                <th>A√ß√µes</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -324,7 +325,7 @@
                                         <a class="btn btn-sm btn-action-edit" asp-controller="Prontuarios" asp-action="Edit" asp-route-id="@pr.Id">Editar</a>
                                         <form asp-controller="Prontuarios" asp-action="Delete" asp-route-id="@pr.Id" method="post" style="display:inline">
                                             @Html.AntiForgeryToken()
-                                            <button class="btn btn-sm btn-action-delete" type="submit" onclick="return confirm('Confirmar exclus„o?')">Excluir</button>
+                                            <button class="btn btn-sm btn-action-delete" type="submit" onclick="return confirm('Confirmar exclus√£o?')">Excluir</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -343,13 +344,13 @@
 
             <div class="tab-pane fade" id="meds" role="tabpanel">
                 <div class="d-flex justify-content-between align-items-end mb-3 mt-4">
-                    <h4>Cat·logo de Medicamentos</h4>
+                    <h4>Cat√°logo de Medicamentos</h4>
                     <a class="btn-add-new" asp-controller="Medicamentos" asp-action="Create">+ Adicionar Medicamento</a>
                 </div>
 
                 <form method="get" asp-action="Medicines" class="mb-3">
                     <div class="input-group">
-                        <input class="form-control custom-search-input" name="q" placeholder="Buscar por nome, concentraÁ„o..." />
+                        <input class="form-control custom-search-input" name="q" placeholder="Buscar por nome, concentra√ß√£o..." />
                         <button class="btn custom-search-btn" type="submit">Buscar</button>
                     </div>
                 </form>
@@ -359,10 +360,10 @@
                         <thead>
                             <tr>
                                 <th>Nome</th>
-                                <th>ConcentraÁ„o</th>
+                                <th>Concentra√ß√£o</th>
                                 <th>Categoria</th>
                                 <th>Cor da Receita</th>
-                                <th>AÁıes</th>
+                                <th>A√ß√µes</th>
                             </tr>
                         </thead>
                         <tbody>
