@@ -12,20 +12,28 @@
             <li>
                 <a class="nav-link-custom" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
             </li>
-            <li>
-                <a class="nav-link-custom" asp-area="" asp-controller="Login" asp-action="Index">Login</a>
-            </li>
-            <li>
-                <a class="nav-link-custom" asp-area="" asp-controller="Cadastro" asp-action="Index">Cadastro</a>
-            </li>
-            <li>
-                <a class="nav-link-custom" asp-area="" asp-controller="Validador" asp-action="Index">Validador</a>
-            </li>
 
-            @if (User.Identity != null && User.IsInRole("Adm"))
+            @if (User.Identity != null && User.IsInRole("Student") || User.IsInRole("Teacher"))
             {
                 <li>
+                    <a class="nav-link-custom" asp-area="" asp-controller="Validador" asp-action="Index">Validador</a>
+                </li>
+            }
+            else if (User.Identity != null && User.IsInRole("Adm")){
+                <li>
+                    <a class="nav-link-custom" asp-area="" asp-controller="Validador" asp-action="Index">Validador</a>
+                </li>
+                <li>
                     <a class="nav-link-custom" asp-area="" asp-controller="Admin" asp-action="Index">Admin</a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a class="nav-link-custom" asp-area="" asp-controller="Login" asp-action="Index">Login</a>
+                </li>
+                <li>
+                    <a class="nav-link-custom" asp-area="" asp-controller="Cadastro" asp-action="Index">Cadastro</a>
                 </li>
             }
         </ul>
